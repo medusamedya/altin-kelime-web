@@ -1,66 +1,95 @@
 import Link from "next/link"
-import { Instagram, Youtube, Twitter, Linkedin, Mail } from "lucide-react"
-
-const footerLinks = [
-  { href: "#", label: "Ana Sayfa" },
-  { href: "#about", label: "Format Nedir?" },
-  { href: "#how-to-play", label: "Nasıl Oynanır?" },
-  { href: "#video", label: "Stüdyo Kesitleri" },
-  { href: "#apply", label: "Yarışmacı Başvurusu" },
-]
-
-const socialLinks = [
-  { icon: Instagram, href: "#", label: "Instagram" },
-  { icon: Youtube, href: "#", label: "YouTube" },
-  { icon: Twitter, href: "#", label: "X (Twitter)" },
-]
+import Image from "next/image" // Image import edildi
+import { 
+  Instagram, 
+  Youtube, 
+  Twitter, 
+  ChevronRight, 
+  Mail, 
+  Phone, 
+  MapPin, 
+  Globe, 
+  Sparkles, 
+  Award, 
+  Trophy, 
+  Clock, 
+  Star 
+} from "lucide-react"
 
 export function Footer() {
   return (
-    <footer id="contact" className="bg-background relative overflow-hidden border-t border-border/40 mt-auto">
-      {/* İnce Premium Üst Işık (Glow) Efekti */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[40%] h-[100px] bg-primary/10 blur-[80px] pointer-events-none" />
+    <footer id="contact" className="relative overflow-hidden bg-background border-t border-border/40 mt-auto">
+      
+      {/* 1. Arka Plan: SVG Grid Desen */}
+      <div className="absolute inset-0 pointer-events-none opacity-50">
+        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="footerGrid" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
+              <path d="M60 0 L0 0 0 60" fill="none" stroke="currentColor" className="text-primary/5" strokeWidth="0.5"/>
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#footerGrid)" />
+        </svg>
+      </div>
 
-      <div className="container mx-auto px-4 py-16 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8">
-          
-          {/* Marka & Vizyon (Geniş Alan) */}
-          <div className="lg:col-span-5">
-            <h3 className="text-3xl font-black mb-4 tracking-tighter">
-              ALTIN <span className="gold-text">KELİME</span>
-            </h3>
-            <p className="text-muted-foreground leading-relaxed max-w-sm mb-8">
-              Kelime bilgisi, anlık strateji ve psikolojik rekabetin birleştiği yeni nesil omnichannel televizyon yarışması.
+      {/* 2. Üst Gold Çizgi (Gradyan) */}
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-primary to-transparent opacity-50" />
+
+      <div className="relative max-w-7xl mx-auto px-6 pt-16 pb-10 z-10">
+        
+        {/* 3. Ana Footer Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+
+          {/* Kolon 1 — Marka & Sosyal */}
+          <div className="lg:col-span-1">
+            <div className="mb-6 flex items-center gap-3">
+              {/* Logo Alanı */}
+              <div className="relative w-24 h-24 shrink-0">
+                <Image 
+                  src="/Logo.png" 
+                  alt="Altın Kelime Logo" 
+                  fill 
+                  className="object-contain"
+                />
+              </div>
+             
+            </div>
+            <div className="h-px w-12 mb-6 bg-gradient-to-r from-primary to-transparent" />
+            <p className="text-muted-foreground text-sm leading-relaxed mb-8 max-w-xs font-medium">
+              Kelime bilgisi, anlık strateji ve rekabetin birleştiği yeni nesil omnichannel televizyon yarışması.
             </p>
             {/* Sosyal Medya İkonları */}
-            <div className="flex items-center gap-4">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all hover:-translate-y-1"
-                  aria-label={social.label}
-                >
-                  <social.icon size={18} />
+            <div className="flex gap-3">
+              {[
+                { icon: Instagram, label: "Instagram", href: "#" },
+                { icon: Youtube, label: "YouTube", href: "#" },
+                { icon: Twitter, label: "Twitter", href: "#" },
+              ].map(({ icon: Icon, label, href }) => (
+                <a key={label} href={href} aria-label={label}
+                  className="w-10 h-10 rounded-xl flex items-center justify-center border border-primary/20 text-muted-foreground hover:border-primary hover:text-primary hover:bg-primary/10 transition-all duration-300 shadow-sm">
+                  <Icon size={18} />
                 </a>
               ))}
             </div>
           </div>
 
-          {/* Hızlı Menü */}
-          <div className="lg:col-span-3 lg:col-start-7">
-            <h4 className="text-foreground font-bold mb-6 tracking-wide uppercase text-sm">Hızlı Bağlantılar</h4>
+          {/* Kolon 2 — Hızlı Bağlantılar */}
+          <div>
+            <h4 className="text-primary text-[11px] font-black tracking-[0.3em] uppercase mb-8 flex items-center gap-2">
+              <div className="h-px w-4 bg-primary" /> Sayfalar
+            </h4>
             <ul className="space-y-4">
-              {footerLinks.map((link) => (
+              {[
+                { label: "Ana Sayfa", href: "#" },
+                { label: "Format Nedir?", href: "#about" },
+                { label: "Nasıl Oynanır?", href: "#how-to-play" },
+                { label: "Yarışmacı Ol", href: "#apply" },
+                { label: "İletişim", href: "#contact" },
+              ].map(link => (
                 <li key={link.label}>
-                  <Link
-                    href={link.href}
-                    className="text-muted-foreground hover:text-primary transition-colors text-sm font-medium flex items-center gap-2 group"
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary/0 group-hover:bg-primary transition-colors" />
+                  <Link href={link.href}
+                    className="text-muted-foreground text-sm hover:text-primary transition-colors flex items-center gap-2 group font-medium">
+                    <ChevronRight className="w-3 h-3 opacity-0 -ml-2 group-hover:opacity-100 group-hover:ml-0 transition-all text-primary" />
                     {link.label}
                   </Link>
                 </li>
@@ -68,44 +97,95 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* İletişim & Yapım */}
-          <div className="lg:col-span-3">
-            <h4 className="text-foreground font-bold mb-6 tracking-wide uppercase text-sm">Yapım & Yönetim</h4>
-            <div className="space-y-4 text-sm text-muted-foreground">
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                  <Mail size={16} className="text-primary" />
-                </div>
-                <div>
-                  <p className="font-semibold text-foreground mb-1">Medusa Global Medya Yatırım A.Ş.</p>
-                  <a href="mailto:info@medusaglobal.com.tr" className="hover:text-primary transition-colors block mb-1">
-                    info@medusaglobal.com.tr
+          {/* Kolon 3 — Yarışma Dünyası */}
+          <div>
+            <h4 className="text-primary text-[11px] font-black tracking-[0.3em] uppercase mb-8 flex items-center gap-2">
+              <div className="h-px w-4 bg-primary" /> Yarışma
+            </h4>
+            <ul className="space-y-4">
+              {[
+                { icon: Award, label: "Günlük Challenge" },
+                { icon: Trophy, label: "Şampiyonlar" },
+                { icon: Clock, label: "Yayın Takvimi" },
+                { icon: Star, label: "TDK Kelime Bankası" },
+              ].map(({ icon: Icon, label }) => (
+                <li key={label}>
+                  <a href="#" className="text-muted-foreground text-sm hover:text-primary transition-colors flex items-center gap-3 group font-medium">
+                    <Icon size={14} className="text-primary/40 group-hover:text-primary transition-colors shrink-0" />
+                    {label}
                   </a>
-                  <a
-                    href="https://www.medusaglobal.com.tr"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-primary hover:underline font-medium"
-                  >
-                    www.medusaglobal.com.tr
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Kolon 4 — İletişim & Yapım */}
+          <div>
+            <h4 className="text-primary text-[11px] font-black tracking-[0.3em] uppercase mb-8 flex items-center gap-2">
+              <div className="h-px w-4 bg-primary" /> İletişim
+            </h4>
+            <ul className="space-y-5">
+              {[
+                { icon: Globe, text: "www.medusaglobal.com.tr", href: "https://www.medusaglobal.com.tr" },
+                { icon: Mail, text: "info@medusaglobal.com.tr", href: "mailto:info@medusaglobal.com.tr" },
+                { icon: Phone, text: "0 553 735 35 00", href: "tel:+905537353500" },
+                { icon: MapPin, text: "Medusa Global Medya Yatırım A.Ş.", href: "#" },
+              ].map(({ icon: Icon, text, href }) => (
+                <li key={text}>
+                  <a href={href} className="flex items-start gap-4 group">
+                    <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-primary/20 transition-colors">
+                      <Icon size={14} className="text-primary group-hover:scale-110 transition-transform" />
+                    </div>
+                    <span className="text-muted-foreground text-sm leading-tight group-hover:text-foreground transition-colors font-medium">{text}</span>
                   </a>
-                </div>
-              </div>
-            </div>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
-        {/* Alt Çizgi ve Yasal Metinler */}
-        <div className="mt-16 pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-muted-foreground text-center md:text-left">
-            © {new Date().getFullYear()} Altın Kelime Ekosistemi. Tüm format ve yayın hakları saklıdır.
-          </p>
-          <div className="flex items-center gap-6 text-sm font-medium text-muted-foreground">
-            <Link href="#" className="hover:text-primary transition-colors">Gizlilik Politikası</Link>
-            <Link href="#" className="hover:text-primary transition-colors">Kullanım Şartları</Link>
-            <Link href="#" className="hover:text-primary transition-colors">KVKK Aydınlatma Metni</Link>
+        {/* 4. Newsletter (Bülten) Şeridi */}
+        <div className="rounded-3xl border border-primary/10 bg-card/40 backdrop-blur-md p-8 md:p-10 mb-16 flex flex-col md:row lg:flex-row items-center justify-between gap-8 shadow-2xl">
+          <div className="max-w-xl">
+            <div className="flex items-center gap-2 mb-3">
+              <Sparkles className="w-5 h-5 text-primary animate-pulse" />
+              <span className="text-primary text-xs font-black tracking-widest uppercase">VIP Bülten</span>
+            </div>
+            <h5 className="text-foreground font-black text-2xl mb-2 tracking-tight">İlk sezondan siz haberdar olun</h5>
+            <p className="text-muted-foreground text-sm font-medium leading-relaxed">Yayın tarihleri, yarışmacı seçmeleri ve stüdyodan özel kesintiler e-postanıza gelsin.</p>
+          </div>
+          <div className="flex gap-3 w-full lg:w-auto shrink-0">
+            <input 
+              type="email" 
+              placeholder="E-posta adresiniz"
+              className="flex-1 lg:w-64 px-5 py-4 rounded-2xl bg-background border border-border focus:border-primary focus:ring-0 outline-none transition-all text-sm font-medium" 
+            />
+            <button className="gold-bg px-8 py-4 rounded-2xl font-black text-sm text-[#1A1A2E] shadow-xl shadow-primary/20 hover:scale-105 transition-transform">
+              Kayıt Ol
+            </button>
           </div>
         </div>
+
+        {/* 5. Alt Bilgi & Copyright */}
+        <div className="pt-10 border-t border-border/60 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            {/* AK Badge */}
+            <div className="w-8 h-8 rounded-lg gold-bg flex items-center justify-center shadow-lg">
+              <span className="text-[#1A1A2E] font-black text-xs">AK</span>
+            </div>
+             <h3 className="font-black text-2xl tracking-tighter leading-none">
+                <span className="gold-text">ALTIN</span>
+                <span className="text-foreground block text-lg mt-1 uppercase tracking-widest">KELİME</span>
+              </h3>
+            <p className="text-muted-foreground text-[13px] font-bold">© {new Date().getFullYear()} Altın Kelime Ekosistemi. Tüm hakları saklıdır.</p>
+          </div>
+          <div className="flex gap-8 text-muted-foreground text-xs font-black tracking-widest uppercase">
+            <a href="#" className="hover:text-primary transition-colors">Gizlilik</a>
+            <a href="#" className="hover:text-primary transition-colors">Şartlar</a>
+            <a href="#" className="hover:text-primary transition-colors">KVKK</a>
+          </div>
+        </div>
+
       </div>
     </footer>
   )

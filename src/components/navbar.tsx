@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import Image from "next/image" // Image bileşeni eklendi
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "./theme-toggle"
 import { Menu, X } from "lucide-react"
@@ -38,9 +39,19 @@ export function Navbar() {
       <div className="container mx-auto px-4 lg:px-8">
         <nav className="flex items-center justify-between h-16 lg:h-20">
           
-          {/* Logo - gold-text buraya uygulandı */}
-          <Link href="/" className="flex items-center gap-2">
-            <span className="text-xl lg:text-2xl font-black tracking-tight gold-text">
+          {/* Logo - Resim olarak güncellendi */}
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="relative w-10 h-10 lg:w-18 lg:h-18 transition-transform duration-300 group-hover:scale-110">
+              <Image 
+                src="/Logo.png" 
+                alt="Altın Kelime Logo" 
+                fill 
+                className="object-contain"
+                priority // Navbar logosu olduğu için öncelikli yüklenir
+              />
+            </div>
+            {/* Logo yanındaki metni korumak istersen burayı bırakabilirsin, istemezsen silebilirsin */}
+            <span className="hidden sm:block text-lg lg:text-xl font-black tracking-tight gold-text">
               ALTIN KELİME
             </span>
           </Link>
@@ -63,7 +74,7 @@ export function Navbar() {
             <ThemeToggle />
             <Button
               asChild
-              className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold px-6 shadow-md shadow-primary/20"
+              className="gold-bg text-[#1A1A2E] hover:opacity-90 font-black px-8 shadow-lg shadow-primary/30 transition-transform hover:scale-105 border-none"
             >
               <Link href="#apply">Yarışmacı Ol</Link>
             </Button>
@@ -81,7 +92,7 @@ export function Navbar() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden absolute top-full left-0 right-0 bg-background/98 backdrop-blur-md border-b border-border shadow-lg">
+          <div className="lg:hidden absolute top-full left-0 right-0 bg-background/98 backdrop-blur-md border-b border-border shadow-lg animate-in slide-in-from-top duration-300">
             <div className="container mx-auto px-4 py-6">
               <div className="flex flex-col gap-4">
                 {navLinks.map((link) => (
@@ -96,7 +107,7 @@ export function Navbar() {
                 ))}
                 <Button
                   asChild
-                  className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold mt-4"
+                  className="gold-bg text-[#1A1A2E] font-black mt-4 py-6 text-lg"
                 >
                   <Link href="#apply">Yarışmacı Ol</Link>
                 </Button>
