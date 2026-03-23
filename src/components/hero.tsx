@@ -3,9 +3,10 @@
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { LetterTile } from "./letter-tile"
-import { useState, useEffect, useCallback, useRef } from "react" // useRef EKLENDİ
 import { ChevronLeft, ChevronRight, Play } from "lucide-react"
 import Image from "next/image"
+import { useState, useEffect, useCallback, useRef } from "react"
+import { useTheme } from "next-themes" // BUNU EKLE
 
 const slides = [
   {
@@ -23,6 +24,7 @@ const slides = [
 ]
 
 export function Hero() {
+  const { theme } = useTheme()
   const [currentSlide, setCurrentSlide] = useState(0)
   const [timeLeft, setTimeLeft] = useState(60)
   const [typedText, setTypedText] = useState("")
@@ -125,10 +127,13 @@ export function Hero() {
 
       {/* DÜZELTİLEN KISIM: fixed yerine absolute kullanıldı! */}
       {/* Böylece karanlık filtre sadece Hero section'ın içinde hapsolur. */}
+      {/* 3. Mouse Sahne Işığı Efekti (Temaya Duyarlı) */}
       <div 
-        className="absolute inset-0 pointer-events-none z-20"
+        className="absolute inset-0 pointer-events-none z-20 transition-colors duration-500"
         style={{
-          background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(212, 175, 55, 0.15) 0%, rgba(10, 10, 10, 0.8) 25%)`
+          background: theme === 'dark' 
+            ? `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(212, 175, 55, 0.15) 0%, rgba(10, 10, 10, 0.8) 25%)`
+            : `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(212, 175, 55, 0.2) 0%, rgba(255, 255, 255, 0.6) 25%)`
         }}
       />
 
