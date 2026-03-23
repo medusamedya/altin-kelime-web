@@ -23,7 +23,7 @@ export function StatisticsSection({ stats }: StatisticsSectionProps) {
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-balance">
             Sayılarla{" "}
-            <span className="text-primary">Altın Kelime</span>
+            <span className="gold-text">Altın Kelime</span>
           </h2>
         </div>
 

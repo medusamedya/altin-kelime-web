@@ -31,15 +31,16 @@ export function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${
         isScrolled
-          ? "bg-background/95 backdrop-blur-md border-b border-border"
+          ? "bg-background/95 backdrop-blur-md border-b border-border shadow-sm"
           : "bg-transparent"
       }`}
     >
       <div className="container mx-auto px-4 lg:px-8">
         <nav className="flex items-center justify-between h-16 lg:h-20">
-          {/* Logo */}
+          
+          {/* Logo - gold-text buraya uygulandı */}
           <Link href="/" className="flex items-center gap-2">
-            <span className="text-xl lg:text-2xl font-bold tracking-tight text-primary">
+            <span className="text-xl lg:text-2xl font-black tracking-tight gold-text">
               ALTIN KELİME
             </span>
           </Link>
@@ -62,7 +63,7 @@ export function Navbar() {
             <ThemeToggle />
             <Button
               asChild
-              className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold px-6"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold px-6 shadow-md shadow-primary/20"
             >
               <Link href="#apply">Yarışmacı Ol</Link>
             </Button>
@@ -80,7 +81,7 @@ export function Navbar() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden absolute top-full left-0 right-0 bg-background/98 backdrop-blur-md border-b border-border">
+          <div className="lg:hidden absolute top-full left-0 right-0 bg-background/98 backdrop-blur-md border-b border-border shadow-lg">
             <div className="container mx-auto px-4 py-6">
               <div className="flex flex-col gap-4">
                 {navLinks.map((link) => (
