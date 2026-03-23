@@ -31,11 +31,13 @@ export function ExperienceSection() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
       
       <div className="container mx-auto px-4 relative z-10">
+        
         {/* Section header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-balance">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black mb-6 text-balance tracking-tight">
             Altın Kelime Deneyimini{" "}
-            <span className="text-primary">Keşfedin</span>
+            {/* Vurgulu kelimeye gold-text eklendi */}
+            <span className="gold-text">Keşfedin</span>
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed text-pretty">
             Televizyon ekranından mobil deneyime uzanan, strateji ve kelime odaklı 

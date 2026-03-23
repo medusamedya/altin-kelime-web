@@ -3,6 +3,7 @@ import { Inter, Montserrat } from 'next/font/google'
 import './globals.css'
 import { Navbar } from '@/components/navbar'
 import { ThemeProvider } from '@/components/theme-provider' // YENİ EKLENDİ
+import { ScrollToTop } from '@/components/scroll-to-top'
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -42,6 +43,7 @@ export default function RootLayout({
         >
           <Navbar />
           {children}
+          <ScrollToTop />
         </ThemeProvider>
       </body>
     </html>

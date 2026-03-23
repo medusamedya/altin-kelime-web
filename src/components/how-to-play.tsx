@@ -1,14 +1,15 @@
 "use client"
 
-import { LetterTile } from "./letter-tile"
-import { Timer, TrendingUp, Trophy, Layers, ArrowDownCircle } from "lucide-react"
+import { useState, useEffect, useRef, ReactNode } from "react"
+import { LetterTile } from "./letter-tile" 
+import { ArrowDownCircle } from "lucide-react"
+import { Reveal } from "./reveal" // <-- Reveal'ı kaydettiğin dosyadan import etmeyi unutma!
 
 const steps = [
   {
     number: "01",
     title: "Kartlar Dağıtılır",
     description: "Stüdyoda heyecan dorukta! Her yarışmacıya gizli 2 harf verilir, masaya ise 5 kapalı harf konur. Stratejinizi bu gizli harfler üzerine kurun.",
-    icon: Layers,
     letters: ["?", "?", "A", "R", "T", "I", "K"],
     type: "deal"
   },
@@ -16,14 +17,12 @@ const steps = [
     number: "02",
     title: "Risk ve Strateji",
     description: "Zaman daralıyor! Puanınızı masaya sürün veya doğru harfin açılmasını bekleyin. Unutmayın, her hamle masadaki ödülü büyütür.",
-    icon: Timer,
     type: "strategy"
   },
   {
     number: "03",
     title: "Büyük Açılış",
     description: "Harfler teker teker açılırken kelime ihtimalleri canlanır. 7 harfi zihninizde birleştirin ve en yüksek puanlı kombinasyonu bulun.",
-    icon: TrendingUp,
     letters: ["S", "T", "R", "A", "T", "E", "J"],
     type: "reveal"
   },
@@ -31,7 +30,6 @@ const steps = [
     number: "04",
     title: "Altın Vuruş",
     description: "TDK onaylı en uzun kelimeyi ilk gönderen masadaki tüm puanları süpürür ve 'Haftanın Kelime Şampiyonu' unvanına bir adım yaklaşır.",
-    icon: Trophy,
     winningWord: "STRATEJİ",
     type: "win"
   },
@@ -39,112 +37,136 @@ const steps = [
 
 export function HowToPlay() {
   return (
-    <section id="how-to-play" className="py-24 lg:py-32 bg-background relative overflow-hidden">
+    <section id="how-to-play" className="px-6 py-28 relative bg-background">
       {/* Premium Arka Plan Efektleri */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(234,179,8,0.03)_0%,transparent_70%)]" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(200,149,42,0.05)_0%,transparent_70%)]" />
       </div>
 
-      <div className="container mx-auto px-4 relative">
-        <div className="text-center max-w-3xl mx-auto mb-20">
-          <div className="inline-block px-3 py-1 rounded-full bg-primary/10 border border-primary/20 mb-4">
-            <span className="text-xs font-bold text-primary tracking-[0.2em] uppercase">Nasıl Çalışır?</span>
+      <div className="max-w-6xl mx-auto relative z-10">
+        
+        {/* Üst Başlık Alanı - Reveal ile aşağıdan gelir */}
+        <Reveal dir="up" className="text-center mb-16">
+          <div className="inline-block px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 mb-6 backdrop-blur-sm">
+            <span className="text-xs font-bold text-primary tracking-[0.2em] uppercase">
+              Oyun Sistemi
+            </span>
           </div>
-          <h2 className="text-4xl md:text-6xl font-black mb-6 tracking-tighter">
-            4 ADIMDA <span className="text-primary underline decoration-primary/20">ZAFERE</span> ULAŞ
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-foreground mb-4 tracking-tight">
+            4 Adımda <span className="gold-text">Altın Kelime</span>
           </h2>
-        </div>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed">
+            Kurallar basit ama rekabet amansız. Sadece kelime dağarcığına değil, stratejiye ve hızlı düşünmeye dayalı bu formatı keşfet.
+          </p>
+        </Reveal>
 
-        <div className="space-y-24 lg:space-y-40">
+        {/* Adımlar (Kart Yapısı) */}
+        <div className="space-y-8">
           {steps.map((step, index) => (
-            <div
-              key={index}
-              className={`grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center ${
-                index % 2 === 1 ? "lg:grid-flow-dense" : ""
-              }`}
+            /* KARTLARI REVEAL İLE SARIYORUZ */
+            <Reveal 
+              key={index} 
+              delay={index * 150} 
+              dir={index % 2 === 0 ? "left" : "right"}
             >
-              {/* Görsel Alan (Preview) */}
-              <div className={`relative group ${index % 2 === 1 ? "lg:col-start-2" : ""}`}>
-                <div className="absolute -inset-4 bg-gradient-to-r from-primary/10 to-transparent rounded-[3rem] blur-2xl opacity-0 group-hover:opacity-100 transition-duration-500" />
+              <div className="group grid grid-cols-1 md:grid-cols-2 gap-0 rounded-[2rem] overflow-hidden border border-primary/20 bg-card/40 backdrop-blur-md shadow-2xl transition-all duration-500 hover:border-primary/40 hover:shadow-primary/10">
                 
-                <div className="relative bg-card/40 backdrop-blur-xl border border-white/10 p-8 lg:p-12 rounded-[2.5rem] shadow-2xl overflow-hidden">
-                  {/* Step Badge */}
-                  <div className="absolute top-0 right-0 bg-primary px-8 py-2 rounded-bl-3xl font-black text-primary-foreground italic">
-                    STEP {step.number}
-                  </div>
-
-                  {/* İçerik Tipine Göre Görselleştirme */}
-                  {step.type === "deal" && (
-                    <div className="flex flex-wrap justify-center gap-3 py-10">
-                      {step.letters?.map((l, i) => (
-                        <div key={i} className={`animate-slot`} style={{ animationDelay: `${i * 100}ms` }}>
-                           <LetterTile letter={l} variant={l === "?" ? "empty" : "default"} size="lg" />
-                        </div>
-                      ))}
-                    </div>
-                  )}
-
-                  {step.type === "strategy" && (
-                    <div className="py-10 space-y-6">
-                      <div className="flex justify-between items-end border-b border-white/10 pb-4">
-                        <span className="text-sm font-bold text-muted-foreground uppercase">Masadaki Bahis</span>
-                        <span className="text-4xl font-black text-primary animate-pulse">2,500 PT</span>
-                      </div>
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center font-bold text-muted-foreground uppercase text-xs">Pas Geç</div>
-                        <div className="h-12 rounded-xl bg-primary flex items-center justify-center font-bold text-primary-foreground uppercase text-xs shadow-lg shadow-primary/20">Puan Arttır</div>
-                      </div>
-                    </div>
-                  )}
-
-                  {step.type === "reveal" && (
-                    <div className="flex flex-wrap justify-center gap-3 py-10">
-                      {step.letters?.map((l, i) => (
-                        <div key={i} className={i < 4 ? "animate-pulse-gold" : "opacity-40"}>
-                          <LetterTile letter={l} variant={i < 4 ? "gold" : "default"} size="lg" />
-                        </div>
-                      ))}
-                    </div>
-                  )}
-
-                  {step.type === "win" && (
-                    <div className="text-center py-6 animate-in zoom-in duration-500">
-                      <div className="flex justify-center gap-2 mb-6">
-                        {step.winningWord?.split("").map((l, i) => (
-                          <div key={i} className="animate-slot" style={{ animationDelay: `${i * 150}ms` }}>
-                            <LetterTile letter={l} variant="gold" size="md" />
+                {/* VİDEO/İNTERAKTİF ALAN (Tek-Çift sırasına göre sağa/sola geçer) */}
+                <div className={`relative flex items-center justify-center p-8 md:p-12 min-h-[300px] bg-background/50 overflow-hidden ${index % 2 === 1 ? "md:order-2" : "md:order-1"}`}>
+                  {/* Arka plan parlama efekti */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  
+                  {/* İçerik Tipine Göre İnteraktif Animasyonlar */}
+                  <div className="relative z-10 w-full flex items-center justify-center">
+                    
+                    {step.type === "deal" && step.letters && (
+                      <div className="flex flex-wrap justify-center gap-2 md:gap-3">
+                        {step.letters.map((l, i) => (
+                          <div key={i} className="animate-slot hover:-translate-y-2 transition-transform" style={{ animationDelay: `${i * 100}ms` }}>
+                            <LetterTile letter={l} variant={l === "?" ? "empty" : "default"} size="lg" />
                           </div>
                         ))}
                       </div>
-                      <div className="bg-primary/20 p-4 rounded-2xl border border-primary/30">
-                        <p className="text-primary font-black text-2xl uppercase tracking-tighter">Şampiyonun Kelimesi!</p>
+                    )}
+
+                    {step.type === "strategy" && (
+                      <div className="w-full max-w-sm space-y-6 bg-card/80 p-6 rounded-2xl border border-border/50 shadow-xl">
+                        <div className="flex justify-between items-end border-b border-white/10 pb-4">
+                          <span className="text-sm font-bold text-muted-foreground uppercase tracking-wider">Masadaki Bahis</span>
+                          <span className="text-4xl font-black gold-text animate-pulse">2,500 PT</span>
+                        </div>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div className="h-12 rounded-xl bg-background border border-border flex items-center justify-center font-bold text-muted-foreground uppercase text-xs cursor-pointer hover:bg-secondary transition-colors">Pas Geç</div>
+                          <div className="h-12 rounded-xl bg-gradient-to-r from-primary to-accent flex items-center justify-center font-bold text-primary-foreground uppercase text-xs shadow-lg shadow-primary/30 cursor-pointer hover:scale-105 transition-transform">Puan Arttır</div>
+                        </div>
                       </div>
+                    )}
+
+                    {step.type === "reveal" && step.letters && (
+                      <div className="flex flex-wrap justify-center gap-2 md:gap-3">
+                        {step.letters.map((l, i) => (
+                          <div key={i} className={i < 4 ? "animate-pulse" : "opacity-60"} style={{ animationDelay: `${i * 200}ms` }}>
+                            <LetterTile letter={l} variant={i < 4 ? "gold" : "default"} size="lg" />
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {step.type === "win" && step.winningWord && (
+                      <div className="text-center animate-in zoom-in duration-500">
+                        <div className="flex flex-wrap justify-center gap-2 mb-6">
+                          {step.winningWord.split("").map((l, i) => (
+                            <div key={i} className="animate-slot" style={{ animationDelay: `${i * 150}ms` }}>
+                              <LetterTile letter={l} variant="gold" size="md" />
+                            </div>
+                          ))}
+                        </div>
+                        <div className="bg-primary/10 px-6 py-3 rounded-2xl border border-primary/30 inline-block backdrop-blur-sm">
+                          <p className="gold-text font-black text-xl md:text-2xl uppercase tracking-tighter">Şampiyonun Kelimesi!</p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* METİN ALANI */}
+                <div className={`p-8 md:p-12 flex flex-col justify-center ${index % 2 === 1 ? "md:order-1" : "md:order-2"}`}>
+                  
+                  {/* Altın Step Numarası */}
+                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl mb-6 font-black text-primary-foreground text-lg bg-gradient-to-br from-primary to-accent shadow-[0_0_24px_rgba(212,175,55,0.4)] group-hover:scale-110 transition-transform duration-300">
+                    {step.number}
+                  </div>
+                  
+                  <h3 className="text-foreground font-black text-2xl md:text-3xl mb-4 tracking-tight">
+                    {step.title}
+                  </h3>
+                  
+                  <p className="text-muted-foreground text-lg leading-relaxed mb-8">
+                    {step.description}
+                  </p>
+                  
+                  {/* Yeni Tasarımdaki İlerleme Çubukları (Progress Bars) */}
+                  <div className="flex gap-2 mt-auto pt-6 border-t border-border/50">
+                    {steps.map((_, j) => (
+                      <div 
+                        key={j} 
+                        className={`h-1 flex-1 rounded-full transition-all duration-500 ${j === index ? "bg-primary shadow-[0_0_10px_rgba(212,175,55,0.5)]" : "bg-primary/10"}`} 
+                      />
+                    ))}
+                  </div>
+
+                  {/* Sadece son adımda görünen CTA */}
+                  {index === 3 && (
+                    <div className="mt-8 animate-bounce">
+                      <a href="#play" className="inline-flex items-center gap-3 text-primary font-bold uppercase tracking-widest group-hover:text-accent transition-colors">
+                        Şimdi Dene <ArrowDownCircle className="group-hover:translate-y-1 transition-transform" />
+                      </a>
                     </div>
                   )}
                 </div>
-              </div>
-
-              {/* Metin Alanı */}
-              <div className={index % 2 === 1 ? "lg:col-start-1 lg:row-start-1" : ""}>
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
-                    <step.icon size={28} />
-                  </div>
-                  <h3 className="text-3xl lg:text-5xl font-black tracking-tight">{step.title}</h3>
-                </div>
-                <p className="text-xl text-muted-foreground leading-relaxed mb-10">
-                  {step.description}
-                </p>
                 
-                {index === 3 && (
-                  <div className="animate-bounce">
-                    <a href="#play" className="inline-flex items-center gap-3 text-primary font-black uppercase tracking-widest group">
-                      Şimdi Dene <ArrowDownCircle className="group-hover:translate-y-1 transition-transform" />
-                    </a>
-                  </div>
-                )}
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>

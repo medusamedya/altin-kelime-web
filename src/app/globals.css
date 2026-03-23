@@ -7,61 +7,47 @@
 /* ☀️ AÇIK TEMA (LIGHT MODE) - GERÇEK BEYAZ  */
 /* ========================================= */
 :root {
-  /* Arka planlar bembeyaz ve açık gri */
-  --background: oklch(0.99 0 0); /* Saf beyaza çok yakın */
-  --foreground: oklch(0.14 0 0); /* Kömür karası metin (okunabilirlik için) */
-  --card: oklch(1 0 0); /* Bembeyaz kartlar */
-  --card-foreground: oklch(0.14 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.14 0 0);
+  /* Arka Plan: %99'dan %97'ye çektik (Daha yumuşak, göz yormayan bir zemin) */
+  --background: oklch(0.90 0.01 75); /* Hafif krem/vizon dokunuşlu beyaz */
+  --foreground: oklch(0.12 0.01 85); /* Tam siyah değil, çok koyu kahve/füme (okunabilirlik için) */
   
-  /* Altın Rengi - Açık temada daha tok, koyu bir altın/hardal kullandık ki beyazda okunsun */
-  --primary: oklch(0.65 0.15 85); 
-  --primary-foreground: oklch(0.98 0 0); /* Buton içi beyaz yazı */
+  /* Kartlar: Zeminden bir tık daha belirgin olması için %98 */
+  --card: oklch(0.99 0 0); 
+  --card-foreground: oklch(0.12 0.01 85);
   
-  /* İkincil Alanlar (Experience Section arka planı vs.) */
-  --secondary: oklch(0.96 0 0); /* Çok açık tatlı bir gri */
-  --secondary-foreground: oklch(0.14 0 0);
+  --popover: oklch(0.98 0 0);
+  --popover-foreground: oklch(0.12 0.01 85);
   
-  /* Sönük metinler ve kenarlıklar */
-  --muted: oklch(0.96 0 0);
-  --muted-foreground: oklch(0.45 0 0); /* Orta gri */
+  /* Altın Rengi: Beyaz zeminde "kaybolmaması" için kroma değerini (0.15'ten 0.18'e) artırdık */
+  --primary: oklch(0.62 0.18 85); 
+  --primary-foreground: oklch(0.98 0 0); 
   
-  /* Vurgular */
-  --accent: oklch(0.96 0 0);
-  --accent-foreground: oklch(0.14 0 0);
+  /* İkincil Alanlar: Experience ve Form arka planları için soft bir gri/altın tonu */
+  --secondary: oklch(0.94 0.02 85); 
+  --secondary-foreground: oklch(0.12 0.01 85);
+  
+  /* Sönük metinler: %45'ten %55'e çekerek beyazda okunurluğu garantiledik */
+  --muted: oklch(0.94 0.02 85);
+  --muted-foreground: oklch(0.50 0.05 85); 
+  
+  --accent: oklch(0.94 0.02 85);
+  --accent-foreground: oklch(0.12 0.01 85);
   --destructive: oklch(0.55 0.2 25);
   --destructive-foreground: oklch(0.98 0 0);
   
-  /* Kenarlıklar ve Çizgiler */
-  --border: oklch(0.90 0 0); /* Açık gri kenarlık */
-  --input: oklch(0.90 0 0);
-  --ring: oklch(0.65 0.15 85); /* Odaklanınca altın sarısı yüzük */
+  /* Kenarlıklar: Beyazda çok patlamasın diye yumuşatıldı */
+  --border: oklch(0.88 0.02 85); 
+  --input: oklch(0.88 0.02 85);
+  --ring: oklch(0.62 0.18 85); 
   
-  /* Diğer Değişkenler */
   --radius: 0.75rem;
-  --chart-1: oklch(0.65 0.15 85);
-  --chart-2: oklch(0.55 0.15 280);
-  --chart-3: oklch(0.6 0.15 250);
-  --chart-4: oklch(0.7 0.1 85);
-  --chart-5: oklch(0.5 0.12 280);
-  
-  /* Sidebar vb. */
-  --sidebar: oklch(0.98 0 0);
-  --sidebar-foreground: oklch(0.14 0 0);
-  --sidebar-primary: oklch(0.65 0.15 85);
-  --sidebar-primary-foreground: oklch(0.98 0 0);
-  --sidebar-accent: oklch(0.96 0 0);
-  --sidebar-accent-foreground: oklch(0.14 0 0);
-  --sidebar-border: oklch(0.90 0 0);
-  --sidebar-ring: oklch(0.65 0.15 85);
 
-  /* Custom colors */
-  --gold: oklch(0.65 0.15 85);
-  --gold-light: oklch(0.75 0.15 85);
-  --gold-dark: oklch(0.55 0.15 85);
-  --charcoal: oklch(0.96 0 0);
-  --charcoal-light: oklch(1 0 0);
+  /* Custom Gold Tonları: Animasyonlar buralardan besleniyor */
+  --gold: oklch(0.62 0.18 85);
+  --gold-light: oklch(0.72 0.18 85);
+  --gold-dark: oklch(0.52 0.18 85);
+  --charcoal: oklch(0.94 0.02 85);
+  --charcoal-light: oklch(0.98 0 0);
 }
 
 /* ========================================= */
@@ -284,3 +270,28 @@ html {
 .animate-pulse-gold {
   animation: pulse-gold 2s infinite;
 }
+@layer utilities {
+  .gold-text {
+    background: linear-gradient(90deg, #C8952A, #E8B84B, #FDD877, #E8B84B, #C8952A);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: goldShimmer 5s linear infinite;
+  }
+
+  /* Animasyonun hareketini sağlayan eksik motor kısmı */
+  @keyframes goldShimmer {
+    0% {
+      background-position: 0% center;
+    }
+    100% {
+      background-position: 200% center;
+    }
+  }
+}
+.gold-bg {
+    background: linear-gradient(90deg, #C8952A, #E8B84B, #FDD877, #E8B84B, #C8952A);
+    background-size: 200% auto;
+    animation: goldShimmer 5s linear infinite;
+  }

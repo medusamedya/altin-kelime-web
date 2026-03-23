@@ -4,12 +4,17 @@ import { ProgramIntro } from "@/components/program-intro"
 import { ScrollingDivider } from "@/components/scrolling-divider"
 import { GamePlayground } from "@/components/game-playground"
 import { HowToPlay } from "@/components/how-to-play"
-
-// 1. Yeni hazırladığımız SEO dostu bileşeni import ediyoruz
-// (Dosya adını kendi projedeki ismine göre güncellemeyi unutma)
 import { StatisticsSection } from "@/components/statistics-section"
+import { VideoSection } from "@/components/video-section"
+import { StudioGallery } from "@/components/studio-gallery"
 
-// 2. Gelecekte Strapi'den (API) gelecek verinin provası
+// 1. Mobil Uygulama (Omnichannel) vizyonumuzu ekliyoruz
+import { MobileAppSection } from "@/components/mobile-app-section" // Dosya adını kontrol etmeyi unutma
+import { FinalCTA } from "@/components/final-cta"
+import { Footer } from "@/components/footer"
+import { TeamSection } from "@/components/team-section"
+
+// Strapi'den gelecek verinin provası
 const mockStats = [
   { value: 5, label: "Yarışmacı", suffix: "" },
   { value: 7, label: "Harf", suffix: "" },
@@ -23,12 +28,19 @@ export default function Home() {
           <Hero />
           <ExperienceSection />
           <ProgramIntro />
-          
           <StatisticsSection stats={mockStats} />
-          
           <ScrollingDivider />
           <HowToPlay />
+          
+          <VideoSection />
+          <StudioGallery />
+          <TeamSection />
+          
+          <MobileAppSection />
+          
           <GamePlayground />
+          <FinalCTA />
+          <Footer />
       </main>
   );
 }
