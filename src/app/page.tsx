@@ -4,22 +4,14 @@ import { ProgramIntro } from "@/components/program-intro"
 import { ScrollingDivider } from "@/components/scrolling-divider"
 import { GamePlayground } from "@/components/game-playground"
 import { HowToPlay } from "@/components/how-to-play"
-import { StatisticsSection } from "@/components/statistics-section"
+import { AnimatedStats } from "@/components/animated-stats" 
 import { VideoSection } from "@/components/video-section"
 import { StudioGallery } from "@/components/studio-gallery"
 
 // 1. Mobil Uygulama (Omnichannel) vizyonumuzu ekliyoruz
-import { MobileAppSection } from "@/components/mobile-app-section" // Dosya adını kontrol etmeyi unutma
+import { MobileAppSection } from "@/components/mobile-app-section" 
 import { FinalCTA } from "@/components/final-cta"
 import { TeamSection } from "@/components/team-section"
-
-// Strapi'den gelecek verinin provası
-const mockStats = [
-  { value: 5, label: "Yarışmacı", suffix: "" },
-  { value: 7, label: "Harf", suffix: "" },
-  { value: 1, label: "Dakika", suffix: "" },
-  { value: 1000, label: "Başlangıç Puanı", suffix: "" },
-]
 
 export default function Home() {
   return (
@@ -27,8 +19,10 @@ export default function Home() {
           <Hero />
           <ExperienceSection />
           <ProgramIntro />
-          <StatisticsSection stats={mockStats} />
-          <ScrollingDivider />
+          
+         
+          <AnimatedStats /> 
+          
           <HowToPlay />
           
           <VideoSection />

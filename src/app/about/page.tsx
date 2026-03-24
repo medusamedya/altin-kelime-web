@@ -1,19 +1,15 @@
 import Link from "next/link"
 import { 
-  Brain, 
-  Target, 
-  Eye, 
-  MonitorPlay, 
-  Play, 
-  CheckCircle2, 
-  ArrowRight,
-  ShieldAlert,
-  Zap,
-  Users
+  Brain, Target, Eye, MonitorPlay, Play, CheckCircle2, ArrowRight, ShieldAlert, Zap, Users,Flame,Layers, 
+  ChevronRight, Star 
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { LetterTile } from "@/components/letter-tile"
 import { FinalCTA } from "@/components/final-cta"
+import Image from "next/image"
+import { AnimatedStats } from "@/components/animated-stats"
+import { StudioGallery } from "@/components/studio-gallery"
+import { HowToPlay } from "@/components/how-to-play"
 
 // Meta etiketleri (SEO İçin)
 export const metadata = {
@@ -25,89 +21,192 @@ export default function AboutPage() {
   return (
     <main className="flex flex-col min-h-screen pt-20">
       
-      {/* 1️⃣ ÜST TANITIM BLOĞU (HERO) */}
-      <section className="relative py-20 lg:py-32 overflow-hidden bg-background">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(212,175,55,0.1)_0%,transparent_70%)] pointer-events-none" />
+     {/* 1️⃣ ÜST TANITIM BLOĞU (SİNEMATİK HERO) */}
+      <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-background">
         
-        {/* Dekoratif Harfler */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-30">
-          <div className="absolute top-10 left-[10%] animate-float"><LetterTile letter="S" size="lg" variant="gold" /></div>
-          <div className="absolute bottom-20 right-[15%] animate-float-slow"><LetterTile letter="R" size="md" /></div>
+        {/* Arka Plan Görseli ve Gradyanlar */}
+        <div className="absolute inset-0 z-0">
+          <Image 
+            src="/images/studio.jpg" // Stüdyo veya karanlık bir arka plan görseli
+            alt="Altın Kelime Stüdyosu" 
+            fill 
+            className="object-cover opacity-40 mix-blend-luminosity"
+            priority 
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/60 to-background" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-transparent to-background/90" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_55%_at_50%_40%,rgba(212,175,55,0.08)_0%,transparent_70%)]" />
+          
+          {/* İnce Izgara Deseni (BackgroundTiles alternatifi) */}
+          <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.03]" />
         </div>
 
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-black mb-6 tracking-tight">
-              ALTIN KELİME <br className="hidden md:block"/>
-              <span className="gold-text">NEDİR?</span>
-            </h1>
-            <p className="text-xl md:text-2xl font-bold text-foreground mb-6">
-              Kelime Bilgisi ve Stratejinin Buluştuğu Yarışma
-            </p>
-            <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-2xl mx-auto font-medium">
-              Altın Kelime’de yarışmacılar verilen harflerle en uzun ve geçerli Türkçe kelimeyi üretmeye çalışır. Ancak bu yalnızca bir kelime oyunu değildir. Yarışmacılar aynı zamanda:
-            </p>
-            
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-              <div className="flex items-center gap-2 bg-card/50 px-4 py-2 rounded-xl border border-border/50">
-                <ShieldAlert className="w-5 h-5 text-primary" />
-                <span className="font-bold text-sm">Doğru Zamanda Risk Alır</span>
-              </div>
-              <div className="flex items-center gap-2 bg-card/50 px-4 py-2 rounded-xl border border-border/50">
-                <Users className="w-5 h-5 text-primary" />
-                <span className="font-bold text-sm">Rakiplerini Analiz Eder</span>
-              </div>
-              <div className="flex items-center gap-2 bg-card/50 px-4 py-2 rounded-xl border border-border/50">
-                <Target className="w-5 h-5 text-primary" />
-                <span className="font-bold text-sm">Stratejik Karar Verir</span>
-              </div>
+        {/* Ana İçerik */}
+        <div className="relative z-10 text-center px-4 max-w-5xl mx-auto pt-20">
+          
+          {/* Breadcrumb (Geri Bağlantı) */}
+          <div className="flex items-center justify-center gap-2 text-muted-foreground text-[11px] tracking-[0.25em] uppercase mb-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
+            <Link href="/" className="hover:text-primary transition-colors">Ana Sayfa</Link>
+            <ChevronRight className="w-3 h-3" />
+            <span className="text-primary font-bold">Altın Kelime Nedir?</span>
+          </div>
+
+          {/* Devasa Başlık */}
+          <h1 className="text-[clamp(3rem,8vw,6rem)] font-black leading-none tracking-tight mb-6 animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-150 fill-mode-both">
+            <span className="block text-foreground drop-shadow-sm">ALTIN KELİME</span>
+            <span className="gold-text block mt-2">NEDİR?</span>
+          </h1>
+
+          {/* Yıldızlı Ayıraç */}
+          <div className="flex items-center justify-center gap-4 mb-8 animate-in fade-in duration-1000 delay-300 fill-mode-both">
+            <div className="h-px w-16 bg-gradient-to-r from-transparent to-primary" />
+            <Star className="w-4 h-4 text-primary fill-primary" />
+            <div className="h-px w-16 bg-gradient-to-l from-transparent to-primary" />
+          </div>
+
+          {/* Açıklama Metni */}
+          <p className="text-muted-foreground text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-10 font-medium animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-500 fill-mode-both">
+            Altın Kelime’de yarışmacılar verilen harflerle en uzun ve geçerli Türkçe kelimeyi üretmeye çalışır. Ancak bu <span className="text-primary font-bold">yalnızca bir kelime oyunu değildir.</span> Yarışmacılar aynı zamanda:
+          </p>
+
+          {/* Özellik Kutuları */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-700 fill-mode-both">
+            <div className="flex items-center gap-3 bg-card/40 backdrop-blur-md px-5 py-3 rounded-2xl border border-primary/20 shadow-lg hover:bg-primary/10 transition-colors">
+              <ShieldAlert className="w-5 h-5 text-primary" />
+              <span className="font-bold text-sm text-foreground">Risk Alır</span>
             </div>
+            <div className="flex items-center gap-3 bg-card/40 backdrop-blur-md px-5 py-3 rounded-2xl border border-primary/20 shadow-lg hover:bg-primary/10 transition-colors">
+              <Users className="w-5 h-5 text-primary" />
+              <span className="font-bold text-sm text-foreground">Rakipleri Analiz Eder</span>
+            </div>
+            <div className="flex items-center gap-3 bg-card/40 backdrop-blur-md px-5 py-3 rounded-2xl border border-primary/20 shadow-lg hover:bg-primary/10 transition-colors">
+              <Target className="w-5 h-5 text-primary" />
+              <span className="font-bold text-sm text-foreground">Stratejik Karar Verir</span>
+            </div>
+          </div>
 
-            <p className="text-xl font-black text-primary mb-10 tracking-wide uppercase">
-              Her harf açıldığında oyunun dengesi değişir.
-            </p>
+          <p className="text-lg md:text-xl font-black text-primary mb-10 tracking-widest uppercase drop-shadow-md animate-pulse">
+            Her harf açıldığında oyunun dengesi değişir.
+          </p>
 
-            <Button size="lg" className="gold-bg text-[#1A1A2E] font-black px-10 py-7 rounded-2xl shadow-xl hover:scale-105 transition-transform" asChild>
+          {/* CTA Butonu */}
+          <div className="animate-in fade-in zoom-in-95 duration-1000 delay-1000 fill-mode-both">
+            <Button size="lg" className="gold-bg text-[#1A1A2E] font-black px-10 py-7 rounded-2xl shadow-[0_0_40px_rgba(200,149,42,0.3)] hover:scale-105 transition-transform" asChild>
               <Link href="/#how-to-play">Nasıl Oynanır <ArrowRight className="ml-2 w-5 h-5" /></Link>
             </Button>
           </div>
         </div>
-      </section>
 
-      {/* 2️⃣ PROGRAM KONSEPTİ (4 KARTLIK BLOK) */}
-      <section id="program-konsepti" className="py-24 bg-secondary/30 border-y border-border/50 relative">
-        <div className="container mx-auto px-4">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-4xl md:text-5xl font-black mb-6">
-              PROGRAM <span className="gold-text underline decoration-primary/30">KONSEPTİ</span>
+        {/* Aşağı Kaydır (Keşfet) Çizgisi */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 opacity-60 pointer-events-none">
+          <span className="text-[10px] tracking-[0.3em] uppercase text-foreground font-bold">Keşfet</span>
+          <div className="w-px h-12 bg-gradient-to-b from-primary to-transparent animate-bounce" />
+        </div>
+      </section>
+      {/* ══════════════════════════════════════════════════
+          BÖLÜM 1.5 — 2 Kolonlu Tanıtım (Yüzen Kartlar)
+      ══════════════════════════════════════════════════ */}
+      <section className="relative px-4 py-28 max-w-7xl mx-auto overflow-hidden">
+        {/* Arka plan ışığı */}
+        <div className="absolute top-1/2 left-0 w-96 h-96 rounded-full bg-primary/5 blur-[120px] pointer-events-none" />
+        
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          
+          {/* SOL KOLON: Metinler ve İkonlu Liste */}
+          <div className="relative z-10 animate-in fade-in slide-in-from-left-8 duration-1000">
+            {/* Kategori Etiketi */}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-black tracking-[0.2em] uppercase mb-8">
+              Program Hakkında
+            </div>
+            
+            <h2 className="text-4xl md:text-5xl font-black leading-tight mb-6 tracking-tight">
+              Kelime Bilgisi ve<br />
+              <span className="gold-text">Stratejinin</span><br />
+              Buluştuğu Yarışma
             </h2>
-            <p className="text-lg text-muted-foreground font-medium mb-4">
-              Kelime bilgisinin, stratejinin ve rekabetin birleştiği yeni nesil yarışma formatı.
+            
+            <p className="text-muted-foreground text-lg leading-relaxed mb-8 font-medium">
+              Altın Kelime'de yarışmacılar verilen harflerle en uzun ve geçerli Türkçe
+              kelimeyi üretmeye çalışır. Ancak bu yalnızca bir kelime oyunu değildir.
+              Yarışmacılar aynı zamanda:
             </p>
-            <p className="text-muted-foreground">
-              Altın Kelime, yalnızca doğru kelimeyi bulmaya dayalı klasik bir yarışma değildir. Her turda yarışmacılar yalnızca en uzun kelimeyi üretmeye değil, aynı zamanda doğru anda risk almaya, rakiplerini okumaya ve oyunda kalmaya çalışır.
+            
+            <div className="space-y-4 mb-10">
+              {[
+                { t: "Doğru zamanda risk alır", icon: Flame },
+                { t: "Rakiplerini analiz eder", icon: Brain },
+                { t: "Stratejik kararlar verir", icon: Layers },
+              ].map((item, i) => (
+                <div key={i} className="flex items-center gap-4 p-4 rounded-2xl border border-primary/10 bg-primary/5 hover:border-primary/30 hover:bg-primary/10 transition-colors group">
+                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                    <item.icon className="w-5 h-5 text-primary" />
+                  </div>
+                  <span className="text-foreground font-bold">{item.t}</span>
+                </div>
+              ))}
+            </div>
+            
+            <p className="text-muted-foreground text-sm font-bold italic border-l-2 border-primary/50 pl-4 mb-10 py-1">
+              Her harf açıldığında oyunun dengesi değişir.
             </p>
+            
+            <Button size="lg" variant="outline" className="border-primary/50 text-foreground hover:bg-primary hover:gold-text hover:border-primary rounded-xl font-black tracking-widest uppercase px-8 py-6 transition-all shadow-lg hover:shadow-primary/25" asChild>
+              <Link href="/#how-to-play">Nasıl Oynanır <ChevronRight className="w-4 h-4 ml-2" /></Link>
+            </Button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { title: "Bilgi", icon: Brain, desc: "Yarışmacılar verilen harflerle en uzun ve geçerli Türkçe kelimeyi üretmeye çalışır. Oyunun temelinde güçlü bir dil hâkimiyeti bulunur." },
-              { title: "Strateji", icon: Target, desc: "Oyuncular yalnızca kelime üretmez; puan ekleyerek oyunda kalır, doğru anda çekilir ve rakiplerinin kararlarına göre hamle yapar." },
-              { title: "Psikoloji", icon: Eye, desc: "Bazen bir yarışmacı gerçekten kelime bulmuş olabilir, bazen ise yalnızca blöf yapıyordur. Bu belirsizlik oyunun gerilimini artırır." },
-              { title: "Seyir Deneyimi", icon: MonitorPlay, desc: "İzleyici harfleri takip ederek yarışmaya zihinsel olarak dahil olur. Program yalnızca izlenen değil, birlikte oynanan bir deneyime dönüşür." }
-            ].map((item, i) => (
-              <div key={i} className="bg-card p-8 rounded-3xl border border-border/50 hover:border-primary/50 transition-colors shadow-sm group">
-                <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary transition-colors duration-500">
-                  <item.icon className="w-7 h-7 text-primary group-hover:text-primary-foreground transition-colors" />
+          {/* SAĞ KOLON: Görsel ve Yüzen Elementler */}
+          <div className="relative z-10 animate-in fade-in slide-in-from-right-8 duration-1000 delay-300">
+            <div className="relative">
+              
+              {/* Ana Görsel */}
+              <div className="relative rounded-3xl overflow-hidden aspect-[4/5] border border-primary/20 shadow-[0_0_60px_rgba(212,175,55,0.15)] group">
+                <Image 
+                  src="/images/avatar-1.jpg" // Buraya stüdyo veya yarışmacı resmi gelebilir
+                  alt="Altın Kelime Strateji" 
+                  fill 
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  style={{ filter: "brightness(0.7) contrast(1.1)" }} 
+                />
+                
+                {/* Karartma Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent opacity-80" />
+                
+                {/* Sol Alt Köşe Metni */}
+                <div className="absolute bottom-8 left-32 right-8">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="w-2.5 h-2.5 rounded-full bg-primary animate-pulse" />
+                    <span className="text-primary text-[10px] tracking-[0.2em] uppercase font-black drop-shadow-md">Canlı Yayın</span>
+                  </div>
+                  <p className="text-white font-black text-2xl tracking-tight drop-shadow-lg">Büyük Karar Anı</p>
                 </div>
-                <h3 className="text-xl font-black mb-3">{item.title}</h3>
-                <p className="text-muted-foreground text-sm font-medium leading-relaxed">{item.desc}</p>
+
+                {/* Köşe Süslemeleri (Altın Çizgiler) */}
+                <div className="absolute top-6 right-6 w-8 h-8 border-t-2 border-r-2 border-primary/60" />
+                <div className="absolute top-6 left-6 w-8 h-8 border-t-2 border-l-2 border-primary/60" />
               </div>
-            ))}
+
+              {/* Yüzen Puan Kartı (Sol Alt) */}
+              <div className="absolute -bottom-8 -left-8 p-5 rounded-2xl border border-primary/30 bg-card/95 backdrop-blur-md shadow-[0_10px_40px_rgba(0,0,0,0.5),0_0_20px_rgba(212,175,55,0.15)] animate-float z-20">
+                <p className="text-primary text-[10px] tracking-widest uppercase font-bold mb-1">Puan</p>
+                <p className="text-foreground font-black text-3xl mb-1">2,450</p>
+                <div className="flex gap-1 mt-2">
+                  {[1, 2, 3, 4, 5].map(s => <Star key={s} className="w-3.5 h-3.5 fill-primary text-primary" />)}
+                </div>
+              </div>
+
+              {/* Yüzen Harf Kartı (Sağ Üst) */}
+              <div className="absolute -top-6 -right-6 flex gap-2 p-3.5 rounded-2xl border border-primary/30 bg-card/95 backdrop-blur-md shadow-[0_10px_40px_rgba(0,0,0,0.5)] animate-float-slow z-20">
+                <LetterTile letter="A" size="sm" variant="gold" />
+                <LetterTile letter="L" size="sm" />
+                <LetterTile letter="T" size="sm" />
+              </div>
+              
+            </div>
           </div>
         </div>
       </section>
-
+<AnimatedStats />
       {/* 3️⃣ PROGRAMIN YAPISI (TIMELINE / 3 ADIM) - Dark Mode İyileştirmesi Yapıldı */}
 <section className="py-24 bg-background relative overflow-hidden">
   <div className="container mx-auto px-4 relative z-10">
@@ -190,10 +289,10 @@ export default function AboutPage() {
                 </div>
               ))}
             </div>
-
           </div>
         </div>
       </section>
+                <HowToPlay />
 
       {/* 5️⃣ KELİME EVRENİ (MARQUEE) */}
       <section className="py-12 overflow-hidden bg-primary/5 border-b border-border/40">
