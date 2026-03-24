@@ -11,7 +11,7 @@ import Link from "next/link"
 const navLinks = [
   { href: "/", label: "Ana Sayfa" },
   { href: "/about", label: "Altın Kelime Nedir?" },
-  { href: "/#how-to-play", label: "Nasıl Oynanır?" },
+  { href: "/how-to-play", label: "Nasıl Oynanır?" },
   { href: "/#apply", label: "Yarışmacı Ol" },
   { href: "/#format", label: "Format" },
   { href: "/#contact", label: "İletişim" },
@@ -41,7 +41,7 @@ export function Navbar() {
         <nav className="flex items-center justify-between h-16 lg:h-20">
           
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative w-10 h-10 lg:w-12 lg:h-12 transition-transform duration-300 group-hover:scale-110">
+            <div className="relative w-10 h-10 lg:w-36 lg:h-36 transition-transform duration-300 group-hover:scale-110">
               <Image 
                 src="/Logo.png" 
                 alt="Altın Kelime Logo" 
@@ -50,9 +50,6 @@ export function Navbar() {
                 priority 
               />
             </div>
-            <span className="hidden sm:block text-lg lg:text-xl font-black tracking-tight gold-text">
-              ALTIN KELİME
-            </span>
           </Link>
 
           <div className="hidden lg:flex items-center gap-8">
