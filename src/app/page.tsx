@@ -11,7 +11,6 @@ import { StudioGallery } from "@/components/studio-gallery"
 // 1. Mobil Uygulama (Omnichannel) vizyonumuzu ekliyoruz
 import { MobileAppSection } from "@/components/mobile-app-section" // Dosya adını kontrol etmeyi unutma
 import { FinalCTA } from "@/components/final-cta"
-import { Footer } from "@/components/footer"
 import { TeamSection } from "@/components/team-section"
 
 // Strapi'den gelecek verinin provası
@@ -40,7 +39,6 @@ export default function Home() {
           
           <GamePlayground />
           <FinalCTA />
-          <Footer />
       </main>
   );
 }

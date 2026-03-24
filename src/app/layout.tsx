@@ -2,9 +2,9 @@ import type { Metadata, Viewport } from 'next'
 import { Inter, Montserrat } from 'next/font/google'
 import './globals.css'
 import { Navbar } from '@/components/navbar'
-import { ThemeProvider } from '@/components/theme-provider' // YENİ EKLENDİ
+import { ThemeProvider } from '@/components/theme-provider'
 import { ScrollToTop } from '@/components/scroll-to-top'
-
+import { Footer } from '@/components/footer' 
 const inter = Inter({ 
   subsets: ["latin"],
   variable: '--font-inter'
@@ -30,11 +30,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  // body içindeki children ve Navbar'ı ThemeProvider ile sarmaladık.
-  // defaultTheme="dark" yaparak sitenin ilk açılışta siyah/altın görünmesini sağladık.
   return (
     <html lang="tr" suppressHydrationWarning>
-      <body className={`${inter.variable} ${montserrat.variable} font-sans antialiased`}>
+      {/* flex flex-col min-h-screen ekledik ki Footer hep en altta kalsın */}
+      <body className={`${inter.variable} ${montserrat.variable} font-sans antialiased flex flex-col min-h-screen`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
@@ -42,7 +41,11 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navbar />
-          {children}
+          {/* İçeriklerin footer'ı aşağı itmesi için flex-grow (flex-1) kullanıyoruz */}
+          <main className="flex-1 flex flex-col">
+            {children}
+          </main>
+          <Footer /> {/* 👈 FOOTER ARTIK HER SAYFADA ÇIKACAK */}
           <ScrollToTop />
         </ThemeProvider>
       </body>
