@@ -5,7 +5,9 @@ import Link from "next/link"
 import Image from "next/image"
 import { 
   Brain, Target, Eye, Users, ChevronDown, ChevronRight, 
-  Clock, Coins, Play, AlertCircle, ShieldAlert, Award, Calendar, Zap, Star
+  Clock, Coins, Play, AlertCircle, ShieldAlert, Award, Calendar, Zap, Star,
+  CheckCircle2,
+  HelpCircle
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { LetterTile } from "@/components/letter-tile"
@@ -235,9 +237,10 @@ export default function HowToPlayPage() {
         </div>
       </section>
 
-      {/* 3️⃣ OYUN KURALLARI (ACCORDION & STICKY PANEL) */}
+      {/* 3️⃣ OYUN KURALLARI (ACCORDION, SSS & GÖRSELLİ ÖZET) */}
       <section id="kurallar" className="py-24 bg-card/30 border-y border-border/50 relative">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 max-w-6xl">
+          
           <Reveal dir="up">
             <div className="text-center mb-16">
               <h2 className="text-4xl md:text-5xl font-black mb-6">Oyun <span className="gold-text">Kuralları</span></h2>
@@ -247,9 +250,10 @@ export default function HowToPlayPage() {
             </div>
           </Reveal>
 
-          <div className="grid lg:grid-cols-12 gap-12 items-start">
+          {/* ÜST BLOK: Kurallar ve Sık Sorulan Sorular */}
+          <div className="grid lg:grid-cols-12 gap-12 items-start mb-24">
             
-           {/* Sol Taraf: Accordion Kurallar */}
+            {/* Sol Taraf: Accordion Kurallar */}
             <div className="lg:col-span-8">
               <Reveal dir="left">
                 <RuleAccordion 
@@ -266,41 +270,117 @@ export default function HowToPlayPage() {
               </Reveal>
             </div>
 
-            {/* Sağ Taraf: Sabit(Sticky) Özet ve SSS Kutuları */}
+            {/* Sağ Taraf: Sabit (Sticky) Genişletilmiş SSS Kutusu */}
             <div className="lg:col-span-4 space-y-8 sticky top-32">
               <Reveal dir="right" delay={200}>
-                <div className="bg-primary/10 border border-primary/20 rounded-3xl p-8 shadow-sm">
-                  <div className="flex items-center gap-3 mb-6">
-                    <AlertCircle className="w-6 h-6 text-primary" />
-                    <h3 className="text-xl font-black text-foreground">Kısa Özet</h3>
-                  </div>
-                  <ul className="space-y-4 text-sm font-medium text-foreground/80">
-                    <li className="flex items-start gap-3"><div className="w-2 h-2 rounded-full bg-primary mt-1.5 shrink-0" /> Her yarışmacıya 2 harf verilir.</li>
-                    <li className="flex items-start gap-3"><div className="w-2 h-2 rounded-full bg-primary mt-1.5 shrink-0" /> Ortada 5 harf açılır.</li>
-                    <li className="flex items-start gap-3"><div className="w-2 h-2 rounded-full bg-primary mt-1.5 shrink-0" /> Oyuncular puan artırabilir veya çekilebilir.</li>
-                    <li className="flex items-start gap-3"><div className="w-2 h-2 rounded-full bg-primary mt-1.5 shrink-0" /> En uzun ve geçerli kelime turu kazanır.</li>
-                  </ul>
-                </div>
-              </Reveal>
-
-              <Reveal dir="right" delay={400}>
-                <div className="bg-background border border-border/80 rounded-3xl p-8">
-                  <h3 className="text-xl font-black text-foreground mb-6">Sık Sorulan Sorular</h3>
-                  <div className="space-y-5">
-                    <div>
-                      <h4 className="text-sm font-bold text-primary mb-1">Özel isimler geçerli mi?</h4>
-                      <p className="text-sm text-muted-foreground font-medium">Hayır, özel isimler kesinlikle kabul edilmez.</p>
+                <div className="bg-background border border-border/80 rounded-3xl p-8 shadow-xl hover:border-primary/30 transition-colors">
+                  <div className="flex items-center gap-3 mb-8 border-b border-border/50 pb-5">
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                      <HelpCircle className="w-5 h-5 text-primary" />
                     </div>
-                    <div className="w-full h-px bg-border/50" />
-                    <div>
-                      <h4 className="text-sm font-bold text-primary mb-1">Puan eklemek zorunlu mu?</h4>
-                      <p className="text-sm text-muted-foreground font-medium">Hayır. Oyuncu isterse riske girmeyip turdan çekilebilir.</p>
+                    <h3 className="text-2xl font-black text-foreground">S.S.S.</h3>
+                  </div>
+                  
+                  <div className="space-y-6">
+                    <div className="group">
+                      <h4 className="text-sm font-bold text-foreground mb-1 group-hover:text-primary transition-colors">Özel isimler geçerli mi?</h4>
+                      <p className="text-xs text-muted-foreground font-medium leading-relaxed">Hayır, TDK sözlüğünde yer almayan hiçbir özel isim kabul edilmez.</p>
+                    </div>
+                    <div className="w-full h-px bg-border/40" />
+                    
+                    <div className="group">
+                      <h4 className="text-sm font-bold text-foreground mb-1 group-hover:text-primary transition-colors">Puan eklemek zorunlu mu?</h4>
+                      <p className="text-xs text-muted-foreground font-medium leading-relaxed">Hayır. Oyuncu risk almak istemiyorsa oyundan çekilip o turu pas geçebilir.</p>
+                    </div>
+                    <div className="w-full h-px bg-border/40" />
+                    
+                    <div className="group">
+                      <h4 className="text-sm font-bold text-foreground mb-1 group-hover:text-primary transition-colors">Sadece ortadaki harfler yeterli mi?</h4>
+                      <p className="text-xs text-muted-foreground font-medium leading-relaxed">Evet, kelime oluşturulabilir. Ancak oyuncunun kendi elindeki gizli harfleri kullanması büyük avantaj sağlar.</p>
+                    </div>
+                    <div className="w-full h-px bg-border/40" />
+                    
+                    <div className="group">
+                      <h4 className="text-sm font-bold text-foreground mb-1 group-hover:text-primary transition-colors">Eşitlik olursa ne olur?</h4>
+                      <p className="text-xs text-muted-foreground font-medium leading-relaxed">İki yarışmacı aynı uzunlukta geçerli kelime bulursa, oyunun özel eşitlik bozucu kuralı devreye girer.</p>
                     </div>
                   </div>
                 </div>
               </Reveal>
             </div>
             
+          </div>
+
+          {/* ALT BLOK: Görselli Kısa Özet Alanı */}
+          <div className="grid lg:grid-cols-2 gap-12 items-center bg-card/20 rounded-[3rem] border border-border/50 p-6 md:p-12 overflow-hidden relative">
+            {/* Arka Plan Glow */}
+            <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
+            
+            {/* Sol Görsel Alanı */}
+            <Reveal dir="left" delay={100}>
+              <div className="relative rounded-[2rem] overflow-hidden aspect-video md:aspect-[4/3] border border-primary/20 shadow-[0_20px_50px_rgba(0,0,0,0.5)] group isolate">
+                <Image 
+                  src="/images/studio.jpg" // Buraya stüdyo genel açısı veya yarışmacı görseli gelebilir
+                  alt="Altın Kelime Stüdyosu" 
+                  fill 
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover transition-transform duration-1000 group-hover:scale-105 -z-10" 
+                  style={{ filter: "brightness(0.6) contrast(1.1)" }} 
+                />
+                {/* Karartma */}
+                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent -z-10" />
+                
+                {/* Yüzen Rozet (Glassmorphism) */}
+                <div className="absolute bottom-6 left-6 p-4 rounded-2xl bg-background/50 backdrop-blur-md border border-white/10 shadow-xl">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center animate-pulse shadow-[0_0_15px_rgba(212,175,55,0.5)]">
+                      <Target className="w-5 h-5 text-primary-foreground" />
+                    </div>
+                    <div>
+                      <p className="text-[10px] uppercase tracking-widest text-primary font-bold">Hedef</p>
+                      <p className="text-white font-black text-sm">En Uzun Kelime</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Yüzen Harf (Süsleme) */}
+                <div className="absolute top-6 right-6 animate-float-slow">
+                  <LetterTile letter="A" size="sm" variant="gold" />
+                </div>
+              </div>
+            </Reveal>
+
+            {/* Sağ Metin ve Özet Listesi */}
+            <Reveal dir="right" delay={300}>
+              <div className="relative z-10 lg:pl-8">
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-black tracking-[0.2em] uppercase mb-6">
+                  Özetle
+                </div>
+                <h3 className="text-3xl md:text-4xl font-black text-foreground mb-8 leading-tight">
+                  Bir Bakışta <br/> <span className="gold-text">Altın Kelime</span>
+                </h3>
+                
+                <ul className="space-y-5">
+                  {[
+                    "Her yarışmacıya baştan 2 gizli harf verilir.",
+                    "Oyun alanında 5 harf tur içinde kademeli açılır.",
+                    "Yarışmacılar stratejik olarak puan artırabilir veya turdan çekilebilir.",
+                    "Strateji kadar zamanı doğru yönetmek de hayati önem taşır.",
+                    "Süre bittiğinde en uzun ve geçerli kelimeyi kuran turu kazanır."
+                  ].map((item, index) => (
+                    <li key={index} className="flex items-start gap-4 group">
+                      <div className="mt-1 shrink-0 w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20 group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-primary group-hover:text-primary-foreground transition-colors" />
+                      </div>
+                      <span className="text-muted-foreground font-medium leading-relaxed group-hover:text-foreground transition-colors">
+                        {item}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Reveal>
+
           </div>
         </div>
       </section>
