@@ -80,10 +80,10 @@ export function TeamSection() {
                     </h3>
                   </div>
 
-                  {/* Sağ Üstteki İkon (Hover'da belirir) */}
+                  {/* Sağ Üstteki İkon (DÜZELTME: Saf Altın ve Koyu Kontrast) */}
                   <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-all duration-500 transform scale-50 group-hover:scale-100">
-                    <div className="w-10 h-10 rounded-full flex items-center justify-center bg-gradient-to-br from-primary to-accent shadow-[0_0_20px_rgba(200,149,42,0.4)]">
-                      <Icon className="w-5 h-5 text-primary-foreground" />
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center bg-primary shadow-[0_0_20px_rgba(212,175,55,0.5)]">
+                      <Icon className="w-5 h-5 text-[#1A1A2E]" />
                     </div>
                   </div>
 

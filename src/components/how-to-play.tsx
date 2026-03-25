@@ -60,7 +60,7 @@ export function HowToPlay() {
           </p>
         </Reveal>
 
-        {/* Adımlar (Kart Yapısı) */}
+       {/* Adımlar (Kart Yapısı) */}
         <div className="space-y-8">
           {steps.map((step, index) => (
             /* KARTLARI REVEAL İLE SARIYORUZ */
@@ -69,12 +69,12 @@ export function HowToPlay() {
               delay={index * 150} 
               dir={index % 2 === 0 ? "left" : "right"}
             >
-              <div className="group grid grid-cols-1 md:grid-cols-2 gap-0 rounded-[2rem] overflow-hidden border border-primary/20 bg-card/40 backdrop-blur-md shadow-2xl transition-all duration-500 hover:border-primary/40 hover:shadow-primary/10">
+              <div className="group grid grid-cols-1 md:grid-cols-2 gap-0 rounded-[2rem] overflow-hidden border border-primary/20 bg-card/40 backdrop-blur-md shadow-2xl transition-all duration-500 hover:border-primary/40 hover:shadow-[0_0_30px_rgba(212,175,55,0.15)]">
                 
                 {/* VİDEO/İNTERAKTİF ALAN (Tek-Çift sırasına göre sağa/sola geçer) */}
                 <div className={`relative flex items-center justify-center p-8 md:p-12 min-h-[300px] bg-background/50 overflow-hidden ${index % 2 === 1 ? "md:order-2" : "md:order-1"}`}>
                   {/* Arka plan parlama efekti */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   
                   {/* İçerik Tipine Göre İnteraktif Animasyonlar */}
                   <div className="relative z-10 w-full flex items-center justify-center">
@@ -97,7 +97,8 @@ export function HowToPlay() {
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                           <div className="h-12 rounded-xl bg-background border border-border flex items-center justify-center font-bold text-muted-foreground uppercase text-xs cursor-pointer hover:bg-secondary transition-colors">Pas Geç</div>
-                          <div className="h-12 rounded-xl bg-gradient-to-r from-primary to-accent flex items-center justify-center font-bold text-primary-foreground uppercase text-xs shadow-lg shadow-primary/30 cursor-pointer hover:scale-105 transition-transform">Puan Arttır</div>
+                          {/* 1. DÜZELTME: Puan Arttır Butonu (Saf Altın Geçişi) */}
+                          <div className="h-12 rounded-xl bg-gradient-to-r from-primary to-primary/80 flex items-center justify-center font-bold text-primary-foreground uppercase text-xs shadow-lg shadow-primary/30 cursor-pointer hover:scale-105 hover:brightness-110 transition-all">Puan Arttır</div>
                         </div>
                       </div>
                     )}
@@ -121,7 +122,7 @@ export function HowToPlay() {
                             </div>
                           ))}
                         </div>
-                        <div className="bg-primary/10 px-6 py-3 rounded-2xl border border-primary/30 inline-block backdrop-blur-sm">
+                        <div className="bg-primary/10 px-6 py-3 rounded-2xl border border-primary/30 inline-block backdrop-blur-sm shadow-[0_0_15px_rgba(212,175,55,0.2)]">
                           <p className="gold-text font-black text-xl md:text-2xl uppercase tracking-tighter">Şampiyonun Kelimesi!</p>
                         </div>
                       </div>
@@ -132,12 +133,12 @@ export function HowToPlay() {
                 {/* METİN ALANI */}
                 <div className={`p-8 md:p-12 flex flex-col justify-center ${index % 2 === 1 ? "md:order-1" : "md:order-2"}`}>
                   
-                  {/* Altın Step Numarası */}
-                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl mb-6 font-black text-primary-foreground text-lg bg-gradient-to-br from-primary to-accent shadow-[0_0_24px_rgba(212,175,55,0.4)] group-hover:scale-110 transition-transform duration-300">
+                  {/* 2. DÜZELTME: Altın Step Numarası (Gradient silindi, Glow eklendi) */}
+                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl mb-6 font-black text-primary-foreground text-lg bg-primary shadow-[0_0_20px_rgba(212,175,55,0.4)] group-hover:scale-110 group-hover:shadow-[0_0_30px_rgba(212,175,55,0.6)] transition-all duration-300">
                     {step.number}
                   </div>
                   
-                  <h3 className="text-foreground font-black text-2xl md:text-3xl mb-4 tracking-tight">
+                  <h3 className="text-foreground font-black text-2xl md:text-3xl mb-4 tracking-tight group-hover:text-primary transition-colors duration-300">
                     {step.title}
                   </h3>
                   
@@ -145,7 +146,7 @@ export function HowToPlay() {
                     {step.description}
                   </p>
                   
-                  {/* Yeni Tasarımdaki İlerleme Çubukları (Progress Bars) */}
+                  {/* İlerleme Çubukları (Progress Bars) */}
                   <div className="flex gap-2 mt-auto pt-6 border-t border-border/50">
                     {steps.map((_, j) => (
                       <div 
@@ -155,10 +156,10 @@ export function HowToPlay() {
                     ))}
                   </div>
 
-                  {/* Sadece son adımda görünen CTA */}
+                  {/* 3. DÜZELTME: Sadece son adımda görünen CTA (Accent silindi, Parlama/Beyaz efekt eklendi) */}
                   {index === 3 && (
                     <div className="mt-8 animate-bounce">
-                      <a href="#play" className="inline-flex items-center gap-3 text-primary font-bold uppercase tracking-widest group-hover:text-accent transition-colors">
+                      <a href="#play" className="inline-flex items-center gap-3 text-primary font-bold uppercase tracking-widest hover:text-white hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.8)] transition-all">
                         Şimdi Dene <ArrowDownCircle className="group-hover:translate-y-1 transition-transform" />
                       </a>
                     </div>

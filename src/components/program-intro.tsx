@@ -109,8 +109,8 @@ export function ProgramIntro() {
                 key={index}
                 className="group p-6 md:p-8 rounded-3xl bg-card/60 backdrop-blur-md border border-border/50 hover:border-primary/40 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/15"
               >
-                <div className="w-14 h-14 rounded-2xl bg-background border border-border flex items-center justify-center mb-6 group-hover:bg-gradient-to-br group-hover:from-primary group-hover:to-accent group-hover:border-primary transition-all duration-500 shadow-sm group-hover:shadow-primary/30">
-                  <feature.icon className="w-7 h-7 text-muted-foreground group-hover:text-primary-foreground transition-colors duration-500" />
+               <div className="w-14 h-14 rounded-2xl bg-card border border-border/50 flex items-center justify-center mb-6 transition-all duration-500 shadow-sm group-hover:bg-primary group-hover:border-primary group-hover:shadow-[0_0_25px_rgba(212,175,55,0.3)] group-hover:scale-110">
+                  <feature.icon className="w-7 h-7 text-muted-foreground group-hover:text-[#1A1A2E] transition-colors duration-500" />
                 </div>
                 <h3 className="text-xl font-black mb-3 text-foreground group-hover:text-primary transition-colors duration-300">
                   {feature.title}

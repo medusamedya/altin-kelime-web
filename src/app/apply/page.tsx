@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button"
 import { LetterTile } from "@/components/letter-tile"
 import { FinalCTA } from "@/components/final-cta"
 import { Reveal } from "@/components/reveal"
+import { GamePlayground } from "@/components/game-playground"
 
 // ════════════════════════════════════════════════════════════
 // MİNİ OYUN BİLEŞENİ (Growth Hack - Dönüşüm Arttırıcı)
@@ -556,7 +557,7 @@ export default function ApplyPage() {
               ].map((item, i) => (
                 <Reveal key={i} delay={i * 150} dir="up">
                   <div className="relative z-10 flex flex-row lg:flex-col items-center lg:text-center gap-6 lg:gap-4 group">
-                    <div className="w-24 h-24 shrink-0 rounded-full bg-background border-4 border-card group-hover:border-primary transition-colors duration-500 shadow-md flex items-center justify-center">
+                    <div className="w-24 h-24 shrink-0 rounded-full bg-background border-4 border-border  group-hover:border-primary transition-colors duration-500 shadow-md flex items-center justify-center">
                       <span className="text-2xl font-black gold-text transition-transform group-hover:scale-110">{item.step}</span>
                     </div>
                     <div>
@@ -571,14 +572,7 @@ export default function ApplyPage() {
         </div>
       </section>
 
-      {/* 5️⃣ GROWTH HACK: MİNİ OYUN & BAŞVURU BUTONU */}
-      <section id="test" className="py-32 relative bg-card/20 border-t border-border/50">
-        <div className="container mx-auto px-4">
-          <Reveal dir="up">
-            <MiniGame />
-          </Reveal>
-        </div>
-      </section>
+      <GamePlayground />
 
      <FinalCTA />
 
