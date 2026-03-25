@@ -1,6 +1,4 @@
-"use client"
 
-import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { 
@@ -12,7 +10,6 @@ import {
 import { Button } from "@/components/ui/button"
 import { LetterTile } from "@/components/letter-tile"
 import { FinalCTA } from "@/components/final-cta"
-// Kendi oluşturduğun optimize Reveal bileşenini import ediyoruz (Yolunu projene göre güncelleyebilirsin)
 import { Reveal } from "@/components/reveal" 
 import { RuleAccordion } from "@/components/rule-accordion"
 
@@ -253,7 +250,7 @@ export default function HowToPlayPage() {
           {/* ÜST BLOK: Kurallar ve Sık Sorulan Sorular */}
           <div className="grid lg:grid-cols-12 gap-12 items-start mb-24">
             
-            {/* Sol Taraf: Accordion Kurallar */}
+             {/* Sol Taraf: Accordion Kurallar */}
             <div className="lg:col-span-8">
               <Reveal dir="left">
                 <RuleAccordion 
