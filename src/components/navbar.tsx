@@ -12,8 +12,8 @@ const navLinks = [
   { href: "/", label: "Ana Sayfa" },
   { href: "/about", label: "Altın Kelime Nedir?" },
   { href: "/how-to-play", label: "Nasıl Oynanır?" },
-  { href: "/#apply", label: "Yarışmacı Ol" },
-  { href: "/#format", label: "Format" },
+  { href: "/apply", label: "Yarışmacı Ol" },
+  { href: "/format", label: "Format" },
   { href: "/#contact", label: "İletişim" },
 ]
 
