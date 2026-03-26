@@ -32,21 +32,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="tr" suppressHydrationWarning>
-      {/* flex flex-col min-h-screen ekledik ki Footer hep en altta kalsın */}
-      <body className={`${inter.variable} ${montserrat.variable} font-sans antialiased flex flex-col min-h-screen`}>
+      <body className={`${inter.variable} ${montserrat.variable} font-sans antialiased bg-background text-foreground`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
           enableSystem={false}
           disableTransitionOnChange
         >
-          <Navbar />
-          {/* İçeriklerin footer'ı aşağı itmesi için flex-grow (flex-1) kullanıyoruz */}
-          <main className="flex-1 flex flex-col">
-            {children}
-          </main>
-          <Footer /> {/* 👈 FOOTER ARTIK HER SAYFADA ÇIKACAK */}
-          <ScrollToTop />
+          {/* İŞTE SİHİRLİ KALKAN BURASI: w-full, max-w-[100vw] ve overflow-x-hidden */}
+          <div className="relative flex flex-col min-h-screen w-full max-w-[100vw] overflow-x-hidden">
+            <Navbar />
+            <main className="flex-1 flex flex-col">
+              {children}
+            </main>
+            <Footer />
+            <ScrollToTop />
+          </div>
         </ThemeProvider>
       </body>
     </html>
