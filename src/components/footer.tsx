@@ -46,7 +46,7 @@ export function Footer() {
               {/* Logo Alanı */}
               <div className="relative w-24 h-24 shrink-0">
                 <Image 
-                  src="/Logo.png" 
+                  src="/Logo2.png" 
                   alt="Altın Kelime Logo" 
                   fill 
                   className="object-contain"

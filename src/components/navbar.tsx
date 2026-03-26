@@ -41,9 +41,9 @@ export function Navbar() {
         <nav className="flex items-center justify-between h-16 lg:h-20">
           
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative w-10 h-10 lg:w-36 lg:h-36 transition-transform duration-300 group-hover:scale-110">
+            <div className="relative w-10 h-10 lg:w-28 lg:h-28 transition-transform duration-300 group-hover:scale-110">
               <Image 
-                src="/Logo.png" 
+                src="/Logo2.png" 
                 alt="Altın Kelime Logo" 
                 fill 
                 className="object-contain"
