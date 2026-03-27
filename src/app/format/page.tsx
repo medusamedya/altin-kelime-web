@@ -109,7 +109,7 @@ export default function FormatPage() {
               <Reveal dir="left">
                 <div>
                   <h2 className="text-3xl md:text-4xl font-black mb-6 border-b border-border/50 pb-4 text-foreground">
-                    Yalnızca Bir Oyun Değil, <br/><span className="text-primary">Bir Zeka Arenası</span>
+                    Yalnızca Bir Oyun Değil, <br/><span className="gold-text">Bir Zeka Arenası</span>
                   </h2>
                   <p className="text-lg text-muted-foreground leading-relaxed font-medium mb-6">
                     Altın Kelime, dilimizin zengin kelime hazinesini rekabetçi ve eğlenceli bir oyun yapısı içinde sunan bir yarışma programıdır. Format; <strong className="text-foreground">bilgi, strateji ve zaman baskısını</strong> aynı potada eritir.

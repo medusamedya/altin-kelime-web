@@ -92,8 +92,7 @@ export function HowToPlay() {
                     {step.type === "strategy" && (
                       <div className="w-full max-w-sm space-y-6 bg-card/80 p-6 rounded-2xl border border-border/50 shadow-xl">
                         <div className="flex justify-between items-end border-b border-white/10 pb-4">
-                          <span className="text-sm font-bold text-muted-foreground uppercase tracking-wider">Masadaki Bahis</span>
-                          <span className="text-4xl font-black gold-text animate-pulse">2,500 PT</span>
+                          <span className="text-4xl font-black gold-text animate-pulse">2,500 Altın Puan</span>
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                           <div className="h-12 rounded-xl bg-background border border-border flex items-center justify-center font-bold text-muted-foreground uppercase text-xs cursor-pointer hover:bg-secondary transition-colors">Pas Geç</div>

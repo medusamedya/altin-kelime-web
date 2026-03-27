@@ -6,19 +6,19 @@ import { Trophy, Star, Video } from "lucide-react"
 // Örnek Ekip Verisi (Faz 4'te Strapi'den çekilecek)
 const teamMembers = [
   {
-    name: "Ahmet Yılmaz",
+    name: "Muammer Sarıkaya",
     role: "Yapımcı / Medusa Global",
     img: "/images/avatar-1.jpg", // Kendi resim yollarını buraya ekleyeceksin
     icon: Trophy
   },
   {
-    name: "Ayşe Demir",
+    name: "Müjde Kaynar",
     role: "Format Yaratıcısı",
     img: "/images/avatar-2.jpg",
     icon: Star
   },
   {
-    name: "Can Kaya",
+    name: "Faruk Özdemir",
     role: "Genel Yönetmen",
     img: "/images/avatar-3.jpg",
     icon: Video
