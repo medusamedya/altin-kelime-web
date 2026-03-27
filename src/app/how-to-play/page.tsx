@@ -13,6 +13,13 @@ import { FinalCTA } from "@/components/final-cta"
 import { Reveal } from "@/components/reveal" 
 import { RuleAccordion } from "@/components/rule-accordion"
 
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Altın Kelime Nasıl Oynanır? | Kart Sistemi ve Kurallar",
+  description: "5 yarışmacı, 7 harf, 1.000 Altın Puan. Siyah, yeşil ve kırmızı harf sistemi, strateji mekanikleri ve tur kuralları. Oyunu öğren.",
+}
+
 // ════════════════════════════════════════════════════════════
 // ANA SAYFA BİLEŞENİ
 // ════════════════════════════════════════════════════════════

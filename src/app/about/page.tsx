@@ -11,12 +11,12 @@ import { AnimatedStats } from "@/components/animated-stats"
 import { StudioGallery } from "@/components/studio-gallery"
 import { HowToPlay } from "@/components/how-to-play"
 
-// Meta etiketleri (SEO İçin)
-export const metadata = {
-  title: "Altın Kelime Nedir? | Program Konsepti",
-  description: "Kelime bilgisi, stratejik düşünme ve hızlı karar alma becerilerini bir araya getiren yeni nesil televizyon yarışması.",
-}
+import type { Metadata } from "next"
 
+export const metadata: Metadata = {
+  title: " Altın Kelime Nedir? | Program Konsepti ve Format",
+  description: "Kelime bilgisi, taktik ve stratejiyi birleştiren TV yarışması. TDK onaylı kelimeler, 5 yarışmacı, 1.000 Altın Puan. Formatı keşfet.",
+}
 export default function AboutPage() {
   return (
     <main className="flex flex-col min-h-screen pt-20">

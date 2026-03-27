@@ -70,8 +70,7 @@ export function Navbar() {
               asChild
               className="gold-bg text-[#1A1A2E] hover:opacity-90 font-black px-8 shadow-lg shadow-primary/30 transition-transform hover:scale-105 border-none"
             >
-              {/* BURASI DA GÜNCELLENDİ */}
-              <Link href="/#apply">Yarışmacı Ol</Link>
+              <Link href="/apply">Yarışmacı Ol</Link>
             </Button>
           </div>
 
@@ -110,7 +109,7 @@ export function Navbar() {
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {/* BURASI DA GÜNCELLENDİ */}
-                    <Link href="/#apply">Yarışmacı Ol</Link>
+                    <Link href="/apply">Yarışmacı Ol</Link>
                   </Button>
                 </div>
               </div>

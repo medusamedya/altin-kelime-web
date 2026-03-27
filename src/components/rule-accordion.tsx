@@ -12,8 +12,9 @@ interface Rule {
 export function RuleAccordion({ rules }: { rules: Rule[] }) {
   return (
     <div className="space-y-3">
-      {rules.map((rule) => (
-        <AccordionItem key={rule.num} rule={rule} />
+      {rules.map((rule, index) => (
+        // rule.num yerine index vererek her elemanın benzersiz (0, 1, 2, 3...) olmasını sağladık
+        <AccordionItem key={index} rule={rule} /> 
       ))}
     </div>
   )

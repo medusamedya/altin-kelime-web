@@ -19,119 +19,6 @@ import { FinalCTA } from "@/components/final-cta"
 import { Reveal } from "@/components/reveal"
 import { GamePlayground } from "@/components/game-playground"
 
-// ════════════════════════════════════════════════════════════
-// MİNİ OYUN BİLEŞENİ (Growth Hack - Dönüşüm Arttırıcı)
-// ════════════════════════════════════════════════════════════
-function MiniGame() {
-  const [gameState, setGameState] = useState<"idle" | "playing" | "won" | "lost">("idle")
-  const [timeLeft, setTimeLeft] = useState(15)
-  const [inputValue, setInputValue] = useState("")
-  const letters = ["A", "L", "T", "I", "N"]
-
-  useEffect(() => {
-    let timer: NodeJS.Timeout
-    if (gameState === "playing" && timeLeft > 0) {
-      timer = setInterval(() => setTimeLeft((prev) => prev - 1), 1000)
-    } else if (timeLeft === 0 && gameState === "playing") {
-      setGameState("lost")
-    }
-    return () => clearInterval(timer)
-  }, [gameState, timeLeft])
-
-  const startGame = () => {
-    setGameState("playing")
-    setTimeLeft(15)
-    setInputValue("")
-  }
-
-  const checkWord = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Basit bir kontrol: 3 harften uzunsa kazanmış sayalım (Demo amaçlı)
-    if (inputValue.length >= 3) {
-      setGameState("won")
-    } else {
-      alert("Daha uzun bir kelime denemelisin!")
-    }
-  }
-
-  return (
-    <div className="bg-card/80 backdrop-blur-xl border border-primary/30 rounded-[2rem] p-8 md:p-12 shadow-[0_0_50px_rgba(212,175,55,0.15)] relative overflow-hidden isolate">
-      {/* Oyun Arka Plan Süslemeleri */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-[80px] -z-10" />
-      <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary/5 rounded-full blur-[80px] -z-10" />
-
-      <div className="text-center max-w-2xl mx-auto">
-        <h3 className="text-3xl font-black mb-4">Kendini Test Et</h3>
-        <p className="text-muted-foreground font-medium mb-8">
-          Başvurmadan önce hızını görelim. Verilen harflerle 15 saniyede anlamlı bir kelime üretebilir misin?
-        </p>
-
-        {gameState === "idle" && (
-          <Button onClick={startGame} size="lg" className="gold-bg text-[#1A1A2E] font-black px-10 py-6 rounded-2xl hover:scale-105 transition-transform shadow-lg shadow-primary/20">
-            <Play className="w-5 h-5 mr-2" /> Teste Başla
-          </Button>
-        )}
-
-        {gameState === "playing" && (
-          <div className="animate-in zoom-in-95 duration-500">
-            <div className="flex items-center justify-center gap-3 mb-8">
-              <Timer className={`w-8 h-8 ${timeLeft <= 5 ? 'text-red-500 animate-pulse' : 'text-primary'}`} />
-              <span className={`text-4xl font-black ${timeLeft <= 5 ? 'text-red-500' : 'gold-text'}`}>
-                00:{timeLeft.toString().padStart(2, '0')}
-              </span>
-            </div>
-            
-            <div className="flex justify-center gap-2 mb-8">
-              {letters.map((l, i) => (
-                <LetterTile key={i} letter={l} size="md" variant={i % 2 === 0 ? "gold" : "default"} />
-              ))}
-            </div>
-
-            <form onSubmit={checkWord} className="flex gap-2 max-w-md mx-auto">
-              <input 
-                type="text" 
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value.toUpperCase())}
-                placeholder="Kelimenizi yazın..."
-                className="flex-1 bg-background/50 border border-primary/30 rounded-xl px-6 font-bold text-lg text-center uppercase focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all"
-                autoFocus
-              />
-              <Button type="submit" className="gold-bg text-[#1A1A2E] font-black px-8 rounded-xl">
-                Onayla
-              </Button>
-            </form>
-          </div>
-        )}
-
-        {gameState === "won" && (
-          <div className="animate-in slide-in-from-bottom-4 duration-500">
-            <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6 border border-green-500/50">
-              <Target className="w-10 h-10 text-green-400" />
-            </div>
-            <h4 className="text-2xl font-black text-white mb-2">Harika İş Çıkardın!</h4>
-            <p className="text-muted-foreground mb-8">Hızın ve kelime bilgin tam da aradığımız gibi. Sahne seni bekliyor.</p>
-            <Button size="lg" className="bg-primary text-primary-foreground font-black px-10 py-6 rounded-2xl hover:bg-primary/90 transition-all" asChild>
-              <a href="#basvuru-formu">Hemen Başvur <ArrowRight className="ml-2 w-5 h-5" /></a>
-            </Button>
-          </div>
-        )}
-
-        {gameState === "lost" && (
-          <div className="animate-in slide-in-from-bottom-4 duration-500">
-            <div className="w-20 h-20 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-6 border border-red-500/50">
-              <AlertTriangle className="w-10 h-10 text-red-400" />
-            </div>
-            <h4 className="text-2xl font-black text-white mb-2">Süre Doldu!</h4>
-            <p className="text-muted-foreground mb-8">Stüdyo heyecanı bazen kelimeleri unutturabilir. Bir daha denemeye ne dersin?</p>
-            <Button onClick={startGame} variant="outline" className="border-primary/50 text-foreground hover:bg-primary/10 font-black px-10 py-6 rounded-2xl">
-              Tekrar Dene
-            </Button>
-          </div>
-        )}
-      </div>
-    </div>
-  )
-}
 
 // ════════════════════════════════════════════════════════════
 // ANA SAYFA
@@ -199,8 +86,12 @@ export default function ApplyPage() {
           </Reveal>
 
           <Reveal dir="up" delay={750}>
-            <Button size="lg" className="gold-bg text-[#1A1A2E] font-black px-12 py-7 rounded-2xl shadow-[0_0_40px_rgba(200,149,42,0.3)] hover:scale-105 transition-transform" asChild>
-              <a href="#test">Hemen Başvur <ChevronDown className="ml-2 w-5 h-5" /></a>
+            <Button 
+              onClick={() => window.dispatchEvent(new Event('open-apply-modal'))}
+              size="lg" 
+              className="gold-bg text-[#1A1A2E] font-black px-12 py-7 rounded-2xl shadow-[0_0_40px_rgba(200,149,42,0.3)] hover:scale-105 transition-transform"
+            >
+              Hemen Başvur <ChevronDown className="ml-2 w-5 h-5" />
             </Button>
           </Reveal>
         </div>
@@ -363,13 +254,12 @@ export default function ApplyPage() {
           </div>
         </div>
       </section>
-      {/* 2.5 YARIŞMACI DENEYİMİ (ZİHİNSEL ODAK / HUD KONSEPTİ) */}
-      <section className="py-32 relative overflow-hidden bg-[#0A0A0A]">
+     <section className="py-32 relative overflow-hidden bg-background border-y border-border/50">
         
         {/* Arka Plan Radar/Grid Süslemeleri */}
-        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5 pointer-events-none" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-primary/5 rounded-full animate-[spin_60s_linear_infinite] pointer-events-none" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-primary/5 rounded-full animate-[spin_90s_linear_infinite_reverse] pointer-events-none" />
+        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.03] dark:opacity-5 pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-primary/5 dark:border-primary/10 rounded-full animate-[spin_60s_linear_infinite] pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-primary/5 dark:border-primary/10 rounded-full animate-[spin_90s_linear_infinite_reverse] pointer-events-none" />
         
         {/* Merkez Glow */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-primary/10 rounded-full blur-[100px] pointer-events-none" />
@@ -381,10 +271,10 @@ export default function ApplyPage() {
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-black tracking-[0.2em] uppercase mb-6">
                 Sahne Arkası
               </div>
-              <h2 className="text-4xl md:text-5xl font-black mb-6 text-white tracking-tight">
-                Yarışmacı <span className="gold-text bg-clip-text bg-gradient-to-r from-primary via-primary/80 to-primary/50">Deneyimi</span>
+              <h2 className="text-4xl md:text-5xl font-black mb-6 text-foreground tracking-tight">
+                Yarışmacı <span className="gold-text bg-clip-text bg-gradient-to-r from-primary via-primary/80 to-primary/50 text-transparent">Deneyimi</span>
               </h2>
-              <p className="text-xl md:text-2xl text-white/80 font-medium max-w-2xl mx-auto leading-relaxed">
+              <p className="text-xl md:text-2xl text-muted-foreground font-medium max-w-2xl mx-auto leading-relaxed">
                 Altın Kelime’de yarışmacılar <span className="text-primary font-black border-b border-primary/30 pb-1">yalnızca kelime üretmez.</span>
               </p>
             </div>
@@ -399,50 +289,50 @@ export default function ApplyPage() {
 
             {/* 1. Strateji */}
             <Reveal dir="left" delay={100}>
-              <div className="relative bg-background/40 backdrop-blur-md border border-primary/20 p-8 md:p-10 rounded-[2rem] overflow-hidden group hover:border-primary/50 transition-colors shadow-lg hover:shadow-[0_0_30px_rgba(212,175,55,0.1)]">
+              <div className="relative bg-card/40 backdrop-blur-md border border-primary/20 p-8 md:p-10 rounded-[2rem] overflow-hidden group hover:border-primary/50 transition-colors shadow-lg hover:shadow-[0_0_30px_rgba(212,175,55,0.15)]">
                 {/* HUD Köşeleri */}
                 <div className="absolute top-4 left-4 w-4 h-4 border-t-2 border-l-2 border-primary/40 group-hover:border-primary transition-colors" />
                 <div className="absolute bottom-4 right-4 w-4 h-4 border-b-2 border-r-2 border-primary/40 group-hover:border-primary transition-colors" />
                 
                 <Target className="w-10 h-10 text-primary mb-6 group-hover:scale-110 transition-transform duration-500" />
-                <h3 className="text-2xl font-black text-white mb-3">Stratejik Karar Verir</h3>
-                <p className="text-white/60 font-medium leading-relaxed">Puanlarını yönetir, ne zaman duracağını ve ne zaman risk alacağını hesaplar.</p>
+                <h3 className="text-2xl font-black text-foreground mb-3">Stratejik Karar Verir</h3>
+                <p className="text-muted-foreground font-medium leading-relaxed">Puanlarını yönetir, ne zaman duracağını ve ne zaman risk alacağını hesaplar.</p>
               </div>
             </Reveal>
 
             {/* 2. Analiz */}
             <Reveal dir="right" delay={200}>
-              <div className="relative bg-background/40 backdrop-blur-md border border-primary/20 p-8 md:p-10 rounded-[2rem] overflow-hidden group hover:border-primary/50 transition-colors shadow-lg hover:shadow-[0_0_30px_rgba(212,175,55,0.1)]">
+              <div className="relative bg-card/40 backdrop-blur-md border border-primary/20 p-8 md:p-10 rounded-[2rem] overflow-hidden group hover:border-primary/50 transition-colors shadow-lg hover:shadow-[0_0_30px_rgba(212,175,55,0.15)]">
                 <div className="absolute top-4 right-4 w-4 h-4 border-t-2 border-r-2 border-primary/40 group-hover:border-primary transition-colors" />
                 <div className="absolute bottom-4 left-4 w-4 h-4 border-b-2 border-l-2 border-primary/40 group-hover:border-primary transition-colors" />
                 
                 <Eye className="w-10 h-10 text-primary mb-6 group-hover:scale-110 transition-transform duration-500" />
-                <h3 className="text-2xl font-black text-white mb-3">Rakipleri Analiz Eder</h3>
-                <p className="text-white/60 font-medium leading-relaxed">Blöfleri yakalar, diğer yarışmacıların beden dilini ve özgüvenini okumaya çalışır.</p>
+                <h3 className="text-2xl font-black text-foreground mb-3">Rakipleri Analiz Eder</h3>
+                <p className="text-muted-foreground font-medium leading-relaxed">Blöfleri yakalar, diğer yarışmacıların beden dilini ve özgüvenini okumaya çalışır.</p>
               </div>
             </Reveal>
 
             {/* 3. Psikoloji */}
             <Reveal dir="left" delay={300}>
-              <div className="relative bg-background/40 backdrop-blur-md border border-primary/20 p-8 md:p-10 rounded-[2rem] overflow-hidden group hover:border-primary/50 transition-colors shadow-lg hover:shadow-[0_0_30px_rgba(212,175,55,0.1)]">
+              <div className="relative bg-card/40 backdrop-blur-md border border-primary/20 p-8 md:p-10 rounded-[2rem] overflow-hidden group hover:border-primary/50 transition-colors shadow-lg hover:shadow-[0_0_30px_rgba(212,175,55,0.15)]">
                 <div className="absolute top-4 left-4 w-4 h-4 border-t-2 border-l-2 border-primary/40 group-hover:border-primary transition-colors" />
                 <div className="absolute bottom-4 right-4 w-4 h-4 border-b-2 border-r-2 border-primary/40 group-hover:border-primary transition-colors" />
                 
                 <Activity className="w-10 h-10 text-primary mb-6 group-hover:scale-110 transition-transform duration-500" />
-                <h3 className="text-2xl font-black text-white mb-3">Stres Altında Düşünür</h3>
-                <p className="text-white/60 font-medium leading-relaxed">Sürenin azalmasıyla artan baskı altında soğukkanlılığını koruyup en uzun kelimeyi arar.</p>
+                <h3 className="text-2xl font-black text-foreground mb-3">Stres Altında Düşünür</h3>
+                <p className="text-muted-foreground font-medium leading-relaxed">Sürenin azalmasıyla artan baskı altında soğukkanlılığını koruyup en uzun kelimeyi arar.</p>
               </div>
             </Reveal>
 
             {/* 4. Zamanlama */}
             <Reveal dir="right" delay={400}>
-              <div className="relative bg-background/40 backdrop-blur-md border border-primary/20 p-8 md:p-10 rounded-[2rem] overflow-hidden group hover:border-primary/50 transition-colors shadow-lg hover:shadow-[0_0_30px_rgba(212,175,55,0.1)]">
+              <div className="relative bg-card/40 backdrop-blur-md border border-primary/20 p-8 md:p-10 rounded-[2rem] overflow-hidden group hover:border-primary/50 transition-colors shadow-lg hover:shadow-[0_0_30px_rgba(212,175,55,0.15)]">
                 <div className="absolute top-4 right-4 w-4 h-4 border-t-2 border-r-2 border-primary/40 group-hover:border-primary transition-colors" />
                 <div className="absolute bottom-4 left-4 w-4 h-4 border-b-2 border-l-2 border-primary/40 group-hover:border-primary transition-colors" />
                 
                 <Clock className="w-10 h-10 text-primary mb-6 group-hover:scale-110 transition-transform duration-500" />
-                <h3 className="text-2xl font-black text-white mb-3">Doğru Zamanda Hamle Yapar</h3>
-                <p className="text-white/60 font-medium leading-relaxed">Oyunda kalmak ya da geri çekilmek için milisaniyelik zamanlamaları mükemmel ayarlar.</p>
+                <h3 className="text-2xl font-black text-foreground mb-3">Doğru Zamanda Hamle Yapar</h3>
+                <p className="text-muted-foreground font-medium leading-relaxed">Oyunda kalmak ya da geri çekilmek için milisaniyelik zamanlamaları mükemmel ayarlar.</p>
               </div>
             </Reveal>
 
@@ -456,7 +346,7 @@ export default function ApplyPage() {
                 <div className="absolute top-1/2 -left-12 w-8 h-px bg-primary -translate-y-1/2 hidden md:block" />
                 <div className="absolute top-1/2 -right-12 w-8 h-px bg-primary -translate-y-1/2 hidden md:block" />
                 
-                <p className="text-xl md:text-2xl font-black gold-text tracking-widest uppercase px-6 py-4 border border-primary/20 rounded-2xl bg-primary/5 shadow-[0_0_30px_rgba(212,175,55,0.1)]">
+                <p className="text-xl md:text-2xl font-black text-primary tracking-widest uppercase px-6 py-4 border border-primary/20 rounded-2xl bg-card/60 backdrop-blur-sm shadow-[0_0_30px_rgba(212,175,55,0.15)]">
                   Bu nedenle her bölüm <br className="md:hidden"/> farklı bir rekabet hikâyesi yaratır.
                 </p>
               </div>

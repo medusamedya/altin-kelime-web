@@ -79,12 +79,13 @@ export function Footer() {
               <div className="h-px w-4 bg-primary" /> Sayfalar
             </h4>
             <ul className="space-y-4">
-              {[
-                { label: "Ana Sayfa", href: "#" },
-                { label: "Format Nedir?", href: "#about" },
-                { label: "Nasıl Oynanır?", href: "#how-to-play" },
-                { label: "Yarışmacı Ol", href: "#apply" },
-                { label: "İletişim", href: "#contact" },
+            {[
+                { label: "Ana Sayfa", href: "/" },
+                { label: "Altın Kelime Nedir?", href: "/about" },
+                { label: "Nasıl Oynanır?", href: "/how-to-play" },
+                { label: "Yarışmacı Ol", href: "/apply" },
+                { label: "Format", href: "/format" },
+                { label: "İletişim", href: "/#contact" },
               ].map(link => (
                 <li key={link.label}>
                   <Link href={link.href}
@@ -127,7 +128,7 @@ export function Footer() {
             <ul className="space-y-5">
               {[
                 { icon: Globe, text: "www.medusaglobal.com.tr", href: "https://www.medusaglobal.com.tr" },
-                { icon: Mail, text: "info@medusaglobal.com.tr", href: "mailto:info@medusaglobal.com.tr" },
+                { icon: Mail, text: "hello@medusaglobal.com.tr", href: "mailto:hello@medusaglobal.com.tr" },
                 { icon: Phone, text: "0 553 735 35 00", href: "tel:+905537353500" },
                 { icon: MapPin, text: "Medusa Global Medya Yatırım A.Ş.", href: "#" },
               ].map(({ icon: Icon, text, href }) => (
@@ -169,20 +170,12 @@ export function Footer() {
         {/* 5. Alt Bilgi & Copyright */}
         <div className="pt-10 border-t border-border/60 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-4">
-            {/* AK Badge */}
-            <div className="w-8 h-8 rounded-lg gold-bg flex items-center justify-center shadow-lg">
-              <span className="text-[#1A1A2E] font-black text-xs">AK</span>
-            </div>
-             <h3 className="font-black text-2xl tracking-tighter leading-none">
-                <span className="gold-text">ALTIN</span>
-                <span className="text-foreground block text-lg mt-1 uppercase tracking-widest">KELİME</span>
-              </h3>
             <p className="text-muted-foreground text-[13px] font-bold">© {new Date().getFullYear()} Altın Kelime Ekosistemi. Tüm hakları saklıdır.</p>
           </div>
           <div className="flex gap-8 text-muted-foreground text-xs font-black tracking-widest uppercase">
-            <a href="#" className="hover:text-primary transition-colors">Gizlilik</a>
-            <a href="#" className="hover:text-primary transition-colors">Şartlar</a>
-            <a href="#" className="hover:text-primary transition-colors">KVKK</a>
+            <Link href="/gizlilik" className="hover:text-primary transition-colors">Gizlilik</Link>
+            <Link href="/sartlar" className="hover:text-primary transition-colors">Şartlar</Link>
+            <Link href="/kvkk" className="hover:text-primary transition-colors">KVKK</Link>
           </div>
         </div>
 

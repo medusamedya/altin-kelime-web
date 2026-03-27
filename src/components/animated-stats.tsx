@@ -2,11 +2,12 @@
 
 import { useEffect, useRef, useState } from "react"
 
+// VERİLER İSTEDİĞİN GİBİ GÜNCELLENDİ
 const statsData = [
-  { label: "Yarışmacı / Bölüm", val: 5, suffix: "kişi" },
-  { label: "Harf / Tur", val: 7, suffix: "kart" },
-  { label: "Karar Süresi", val: 1, suffix: "dakika" },
-  { label: "Başlangıç Puanı", val: 1000, suffix: "altın" },
+  { label: "Yarışmacı", val: 5, suffix: "" },
+  { label: "Harf", val: 7, suffix: "" },
+  { label: "Dakika Karar Süresi", val: 1, suffix: "" },
+  { label: "Altın Başlangıç Puanı", val: 1000, suffix: "" },
 ]
 
 export function AnimatedStats() {
@@ -83,7 +84,7 @@ export function AnimatedStats() {
         {statsData.map((s, i) => (
           <div 
             key={i} 
-            className={`text-center transition-all duration-1000 transform ${
+            className={`text-center transition-all duration-1000 transform flex flex-col items-center justify-center ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
             }`}
             style={{ transitionDelay: `${i * 150}ms` }}
@@ -92,7 +93,11 @@ export function AnimatedStats() {
               {counts[i].toLocaleString('tr-TR')}
             </p>
             <p className="text-foreground/70 text-[11px] font-bold tracking-[0.2em] uppercase">{s.label}</p>
-            <p className="text-primary/70 text-xs font-medium mt-1 uppercase tracking-widest">{s.suffix}</p>
+            
+            {/* Sadece suffix (alt metin) varsa renderla, yoksa fazladan boşluk yaratma */}
+            {s.suffix && (
+              <p className="text-primary/70 text-xs font-medium mt-1 uppercase tracking-widest">{s.suffix}</p>
+            )}
           </div>
         ))}
       </div>

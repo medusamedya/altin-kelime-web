@@ -17,8 +17,43 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
+  // --- YENİ EKLENEN: Sitenin Kök Adresi (Canonical URL Hesaplaması İçin Şart) ---
+  metadataBase: new URL('https://altinkelime.com'),
+
+  // 1. Standart SEO (Google İçin)
   title: 'Altın Kelime | 7 Harf – 1 Dakika – 1 Kazanan',
   description: 'Kelime bilgisi, strateji ve rekabetin birleştiği yeni nesil televizyon yarışması. Türkiye\'nin en heyecanlı kelime oyunu.',
+  
+  // --- YENİ EKLENEN: Canonical URL (Google'a Asıl Linki Gösterir) ---
+  alternates: {
+    canonical: '/',
+  },
+
+  // 2. Open Graph (WhatsApp, Facebook, LinkedIn İçin Kapak)
+  openGraph: {
+    title: 'Altın Kelime | Türkiye\'nin En Zorlu Kelime Arenası',
+    description: 'Kelime bilgisi, strateji ve rekabetin birleştiği yeni nesil televizyon yarışması.',
+    url: 'https://altinkelime.com',
+    siteName: 'Altın Kelime',
+    images: [
+      {
+        url: 'https://altinkelime.com/images/studio.jpg', // Kapak fotoğrafı olarak stüdyo görselini çekecek
+        width: 1200,
+        height: 630,
+        alt: 'Altın Kelime Stüdyosu',
+      },
+    ],
+    locale: 'tr_TR',
+    type: 'website',
+  },
+
+  // 3. Twitter Card (Twitter/X Paylaşımları İçin Büyük Kapak)
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Altın Kelime | 7 Harf – 1 Dakika',
+    description: 'Türkiye\'nin en zorlu kelime arenasına katılın.',
+    images: ['https://altinkelime.com/images/studio.jpg'],
+  },
 }
 
 export const viewport: Viewport = {

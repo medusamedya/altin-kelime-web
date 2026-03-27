@@ -2,23 +2,22 @@
 
 import { useState, useEffect } from "react"
 import Image from "next/image"
+import Link from "next/link" 
 import { Button } from "@/components/ui/button"
 import { LetterTile } from "./letter-tile"
-import { ArrowRight, Briefcase, UserPlus, X } from "lucide-react"
+import { ArrowRight, BookOpen, UserPlus, X } from "lucide-react" 
 import { createPortal } from "react-dom"
 
-// --- MODAL FORM BİLEŞENİ ---
-function FormModal({ type, onClose }: { type: "contestant" | "sponsor" | null, onClose: () => void }) {
+// --- MODAL FORM BİLEŞENİ (Sadece Yarışmacı Başvurusu İçin Temizlendi) ---
+function FormModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) {
   // Modal açıkken arka plan kaymasını engelle
   useEffect(() => {
-    if (type) document.body.style.overflow = "hidden"
+    if (isOpen) document.body.style.overflow = "hidden"
     else document.body.style.overflow = "unset"
     return () => { document.body.style.overflow = "unset" }
-  }, [type])
+  }, [isOpen])
 
-  if (!type) return null
-
-  const isContestant = type === "contestant"
+  if (!isOpen) return null
 
   return createPortal(
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
@@ -30,17 +29,14 @@ function FormModal({ type, onClose }: { type: "contestant" | "sponsor" | null, o
         </button>
         
         <div className="mb-10 text-center mt-2">
-          {/* İkon Kutusu: Accent gradyanı silindi, saf altın dokunuşu eklendi */}
           <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-primary/10 text-primary mb-6 shadow-inner border border-primary/30">
-            {isContestant ? <UserPlus size={36} /> : <Briefcase size={36} />}
+            <UserPlus size={36} />
           </div>
           <h3 className="text-3xl md:text-4xl font-black mb-3 tracking-tight">
-            <span className="gold-text">{isContestant ? "Sahneye Çıkma Vakti!" : "Formata Ortak Olun"}</span>
+            <span className="gold-text">Sahneye Çıkma Vakti!</span>
           </h3>
           <p className="text-muted-foreground text-lg font-medium">
-            {isContestant
-              ? "Bilgilerini doldur, ilk sezon seçmeleri için VIP listeye adını yazdır."
-              : "Yatırım, sponsorluk ve yayın hakları için kurucu ekibimize doğrudan ulaşın."}
+            Bilgilerini doldur, ilk sezon seçmeleri için VIP listeye adını yazdır.
           </p>
         </div>
 
@@ -52,21 +48,20 @@ function FormModal({ type, onClose }: { type: "contestant" | "sponsor" | null, o
               <input type="text" className="w-full bg-background border border-border/80 rounded-xl px-5 py-4 focus:border-primary focus:ring-0 outline-none transition-all duration-300 focus:shadow-[0_0_20px_rgba(212,175,55,0.15)] font-medium" placeholder="Örn: Ali Yılmaz" required />
             </div>
             <div className="space-y-2">
-              <label className="text-xs font-bold text-muted-foreground uppercase tracking-widest ml-1">{isContestant ? "Telefon Numaranız" : "Kurumsal E-posta"}</label>
-              <input type={isContestant ? "tel" : "email"} className="w-full bg-background border border-border/80 rounded-xl px-5 py-4 focus:border-primary focus:ring-0 outline-none transition-all duration-300 focus:shadow-[0_0_20px_rgba(212,175,55,0.15)] font-medium" placeholder={isContestant ? "05XX XXX XX XX" : "isim@sirket.com"} required />
+              <label className="text-xs font-bold text-muted-foreground uppercase tracking-widest ml-1">Telefon Numaranız</label>
+              <input type="tel" className="w-full bg-background border border-border/80 rounded-xl px-5 py-4 focus:border-primary focus:ring-0 outline-none transition-all duration-300 focus:shadow-[0_0_20px_rgba(212,175,55,0.15)] font-medium" placeholder="05XX XXX XX XX" required />
             </div>
           </div>
           
           <div className="space-y-2">
             <label className="text-xs font-bold text-muted-foreground uppercase tracking-widest ml-1">
-              {isContestant ? "Neden Altın Kelime?" : "Mesajınız / Teklifiniz"}
+              Neden Altın Kelime?
             </label>
-            <textarea className="w-full bg-background border border-border/80 rounded-xl px-5 py-4 min-h-[120px] focus:border-primary focus:ring-0 outline-none transition-all duration-300 focus:shadow-[0_0_20px_rgba(212,175,55,0.15)] font-medium resize-none" placeholder={isContestant ? "Kelime bilgine neden güveniyorsun? Bize kısaca bahset..." : "Sponsorluk veya yayın hakları taleplerinizi belirtin..."} required />
+            <textarea className="w-full bg-background border border-border/80 rounded-xl px-5 py-4 min-h-[120px] focus:border-primary focus:ring-0 outline-none transition-all duration-300 focus:shadow-[0_0_20px_rgba(212,175,55,0.15)] font-medium resize-none" placeholder="Kelime bilgine neden güveniyorsun? Bize kısaca bahset..." required />
           </div>
           
-          {/* Modal Butonu: Saf Altın ve Koyu Kontrast */}
           <Button type="submit" className="w-full py-7 text-lg font-black mt-8 bg-primary text-[#1A1A2E] hover:bg-primary/90 shadow-xl shadow-primary/20 rounded-xl transition-all hover:-translate-y-1 hover:shadow-primary/30">
-            {isContestant ? "Başvurumu Tamamla" : "Mesajı Gönder"}
+            Başvurumu Tamamla
           </Button>
         </form>
       </div>
@@ -77,7 +72,18 @@ function FormModal({ type, onClose }: { type: "contestant" | "sponsor" | null, o
 
 // --- ANA BİLEŞEN ---
 export function FinalCTA() {
-  const [modalType, setModalType] = useState<"contestant" | "sponsor" | null>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  // YENİ EKLENEN KISIM: Dışarıdan gelen "open-apply-modal" olayını dinler
+  useEffect(() => {
+    const handleOpenModal = () => setIsModalOpen(true)
+    
+    // Olay dinleyiciyi pencereye ekliyoruz
+    window.addEventListener("open-apply-modal", handleOpenModal)
+    
+    // Bileşen ekrandan kalktığında dinleyiciyi temizliyoruz (Performans ve Bug önleme)
+    return () => window.removeEventListener("open-apply-modal", handleOpenModal)
+  }, [])
 
   return (
     <>
@@ -95,7 +101,6 @@ export function FinalCTA() {
 
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.12)_0%,transparent_60%)] pointer-events-none" />
 
-        {/* Dekoratif Harfler: Accent variantları gold/default ile değiştirildi */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute top-1/4 left-[10%] opacity-30 animate-float hidden lg:block"><LetterTile letter="Y" size="lg" variant="gold" /></div>
           <div className="absolute bottom-1/4 right-[10%] opacity-30 animate-float-slow hidden lg:block"><LetterTile letter="A" size="lg" /></div>
@@ -122,9 +127,10 @@ export function FinalCTA() {
 
             {/* Dual CTA Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-              {/* Yarışmacı Butonu: Saf Altın ve Koyu Kontrast */}
+              
+              {/* Yarışmacı Butonu -> Modalı Açar */}
               <Button
-                onClick={() => setModalType("contestant")}
+                onClick={() => setIsModalOpen(true)}
                 size="lg"
                 className="w-full sm:w-auto bg-primary text-[#1A1A2E] hover:bg-primary/90 font-black text-lg px-10 py-8 shadow-2xl shadow-primary/30 group rounded-2xl transition-all hover:-translate-y-1 hover:shadow-primary/40"
               >
@@ -135,17 +141,21 @@ export function FinalCTA() {
                 </span>
               </Button>
 
+              {/* Nasıl Oynanır Butonu -> /how-to-play sayfasına yönlendirir */}
               <Button
-                onClick={() => setModalType("sponsor")}
+                asChild
                 size="lg"
                 variant="outline"
                 className="w-full sm:w-auto font-black text-lg px-10 py-8 shadow-xl group rounded-2xl transition-all hover:-translate-y-1 border-primary/30 hover:bg-primary/10 hover:border-primary hover:text-primary backdrop-blur-sm"
               >
-                <span className="flex items-center gap-3">
-                  <Briefcase className="w-6 h-6 text-foreground group-hover:text-primary transition-colors" />
-                  Sponsor / Yapımcı Ol
-                </span>
+                <Link href="/how-to-play">
+                  <span className="flex items-center gap-3">
+                    <BookOpen className="w-6 h-6 text-foreground group-hover:text-primary transition-colors" />
+                    Nasıl Oynanır?
+                  </span>
+                </Link>
               </Button>
+
             </div>
 
             <div className="mt-24 pt-10 border-t border-border/30 flex flex-col items-center">
@@ -162,7 +172,8 @@ export function FinalCTA() {
         </div>
       </section>
 
-      <FormModal type={modalType} onClose={() => setModalType(null)} />
+      {/* Sadece Başvuru Modalı */}
+      <FormModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </>
   )
 }

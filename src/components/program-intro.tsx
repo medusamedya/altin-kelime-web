@@ -23,60 +23,10 @@ const features = [
   }
 ]
 
-// Arka plan metinleri bileşenin dışında 1 kez oluşturulur (Performans)
-const bgWords = "HIZ • STRATEJİ • 7 HARF • ZAMAN • ODAK • REKABET • HEYECAN • "
-// Ekranı fazlasıyla doldurması için 8 kez çoğaltıyoruz (Çok uzun bir blok oluyor)
-const baseText = bgWords.repeat(8) 
-
 export function ProgramIntro() {
   return (
     <section className="relative py-24 lg:py-32 bg-background overflow-hidden" id="format">
       
-      {/* KOŞU BANDI İÇİN KUSURSUZ CSS (Bileşene Özel) */}
-      <style>{`
-        @keyframes infinite-scroll-left {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); } /* Tam yarısında sıfırlanır, kopma olmaz */
-        }
-        @keyframes infinite-scroll-right {
-          0% { transform: translateX(-50%); }
-          100% { transform: translateX(0); }
-        }
-      `}</style>
-
-      {/* 1. YENİLİK: Kusursuz Akan Tipografik Arka Plan */}
-      <div 
-        className="absolute inset-0 z-0 flex flex-col justify-center pointer-events-none select-none overflow-hidden"
-        aria-hidden="true"
-      >
-        {/* Sola doğru akan 1. Satır */}
-        <div 
-          className="flex whitespace-nowrap w-max"
-          style={{ animation: 'infinite-scroll-left 600s linear infinite' }}
-        >
-          {/* İki adet birebir aynı blok yan yana. Biri bitmeden diğeri ekranı doldurur. */}
-          <span className="text-[8rem] md:text-[12rem] lg:text-[16rem] font-black text-foreground/5 dark:text-foreground/7 tracking-tighter shrink-0">
-            {baseText}
-          </span>
-          <span className="text-[8rem] md:text-[12rem] lg:text-[16rem] font-black text-foreground/5 dark:text-foreground/7 tracking-tighter shrink-0">
-            {baseText}
-          </span>
-        </div>
-        
-        {/* Sağa doğru akan 2. Satır (Biraz daha yukarı çekilmiş) */}
-        <div 
-          className="flex whitespace-nowrap w-max -mt-10 md:-mt-20"
-          style={{ animation: 'infinite-scroll-right 600s linear infinite' }}
-        >
-          <span className="text-[8rem] md:text-[12rem] lg:text-[16rem] font-black text-foreground/4 dark:text-foreground/5 tracking-tighter shrink-0">
-            {baseText}
-          </span>
-          <span className="text-[8rem] md:text-[12rem] lg:text-[16rem] font-black text-foreground/4 dark:text-foreground/5 tracking-tighter shrink-0">
-            {baseText}
-          </span>
-        </div>
-      </div>
-
       {/* 2. Ana İçerik (Foreground) */}
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -107,14 +57,28 @@ export function ProgramIntro() {
             {features.map((feature, index) => (
               <div 
                 key={index}
-                className="group p-6 md:p-8 rounded-3xl bg-card/60 backdrop-blur-md border border-border/50 hover:border-primary/40 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/15"
+                // --- KARTIN YENİ NORMAL HALİ VE HOVER ETKİSİ ---
+                // Değişiklikler: 
+                // 1. Normal border rengi 'border-primary/40' yapıldı (Eski hover rengi).
+                // 2. Normal gölge 'shadow-2xl shadow-primary/15' yapıldı (Eski hover gölgesi).
+                // 3. Hover için: Daha fazla yükselme (-translate-y-4), daha belirgin border ve parıltılı gölge eklendi.
+                className="group p-6 md:p-8 rounded-3xl bg-card/60 backdrop-blur-md transition-all duration-500 
+                           border border-primary/40 shadow-2xl shadow-primary/15
+                           hover:border-primary hover:-translate-y-4 hover:shadow-primary/25 hover:scale-[1.02]"
               >
-               <div className="w-14 h-14 rounded-2xl bg-card border border-border/50 flex items-center justify-center mb-6 transition-all duration-500 shadow-sm group-hover:bg-primary group-hover:border-primary group-hover:shadow-[0_0_25px_rgba(212,175,55,0.3)] group-hover:scale-110">
-                  <feature.icon className="w-7 h-7 text-muted-foreground group-hover:text-[#1A1A2E] transition-colors duration-500" />
+                {/* İkon Kutusu: Normal hali artık altın renkli */}
+                <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 transition-all duration-500 shadow-sm 
+                                bg-primary border border-primary shadow-[0_0_25px_rgba(212,175,55,0.3)] scale-110
+                                group-hover:shadow-[0_0_40px_rgba(212,175,55,0.5)] group-hover:scale-115">
+                  {/* İkon: Normal hali artık koyu charcoal renkli (Altın zemin üzerinde iyi görünmesi için) */}
+                  <feature.icon className="w-7 h-7 text-[#1A1A2E] transition-colors duration-500" />
                 </div>
-                <h3 className="text-xl font-black mb-3 text-foreground group-hover:text-primary transition-colors duration-300">
+                
+                {/* Başlık: Normal hali artık altın renkli */}
+                <h3 className="text-xl font-black mb-3 text-primary transition-colors duration-300">
                   {feature.title}
                 </h3>
+                
                 <p className="text-muted-foreground leading-relaxed text-sm font-medium">
                   {feature.description}
                 </p>
