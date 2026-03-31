@@ -37,11 +37,6 @@ export default function Home() {
           <ExperienceSection />
           <ProgramIntro />
 
-          <ProgressionSystem />
-          <RewardSystem />
-          <AudienceExperience />
-          <StrategyCards />
-          <ProductionSection />
           <FAQSection />
           <BroadcastSchedule />
           
