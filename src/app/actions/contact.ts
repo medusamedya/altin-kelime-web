@@ -44,7 +44,7 @@ export async function sendContactEmail(formData: FormData) {
       return { success: false, error: error.message }
     }
 
-    return { success: true, data }
+    return { success: true }
   } catch (error: any) {
     console.error("Genel Sunucu Hatası:", error);
     return { success: false, error: "Mail gönderilemedi. Lütfen tekrar deneyin." }

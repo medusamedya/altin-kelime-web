@@ -29,7 +29,7 @@ export function ContactForm() {
       }
     } catch (error) {
       setIsPending(false) // Çökme durumunda butonu durdur
-      alert("Ağ hatası oluştu. Lütfen hello@medusaglobal.com.tr adresine direkt mail atınız.")
+        alert("Ağ hatası oluştu. Lütfen medusaglobalcomtr@gmail.com adresine direkt mail atınız.")
     }
   }
 
