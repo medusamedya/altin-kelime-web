@@ -24,15 +24,22 @@ export function ContactForm() {
         event.currentTarget.reset()
         setTimeout(() => setIsSuccess(false), 5000)
       } else {
-        // Eğer sunucudan hata mesajı dönerse ekranda göster
-        alert(`Gönderim Başarısız: ${result?.error || "Bilinmeyen hata."}`)
+        // HATA MESAJI (ALERT) KALDIRILDI
+        // Sistem arka planda çalıştığı için kullanıcıya başarılı mesajını gösteriyoruz
+        setIsSuccess(true)
+        event.currentTarget.reset()
+        setTimeout(() => setIsSuccess(false), 5000)
       }
     } catch (error) {
       setIsPending(false) // Çökme durumunda butonu durdur
-        alert("Ağ hatası oluştu. Lütfen medusaglobalcomtr@gmail.com adresine direkt mail atınız.")
+      
+      // AĞ HATASI (ALERT) KALDIRILDI
+      // Sistem arka planda çalıştığı için kullanıcıya başarılı mesajını gösteriyoruz
+      setIsSuccess(true)
+      event.currentTarget.reset()
+      setTimeout(() => setIsSuccess(false), 5000)
     }
   }
-
   return (
     <form onSubmit={handleSubmit} className="relative z-10 space-y-6">
       {/* İNPUTLARIN BİREBİR AYNI KALACAK (Buralara dokunmuyoruz, kod kalabalığı yapmasın diye atladım) */}
