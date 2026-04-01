@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef } from "react" // useRef'i ekledik
 import { Send, CheckCircle2, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { sendContactEmail } from "@/app/actions/contact"
@@ -8,6 +8,7 @@ import { sendContactEmail } from "@/app/actions/contact"
 export function ContactForm() {
   const [isPending, setIsPending] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
+  const formRef = useRef<HTMLFormElement>(null) // Formu kontrol etmek için Ref oluşturduk
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -17,32 +18,28 @@ export function ContactForm() {
       const formData = new FormData(event.currentTarget)
       const result = await sendContactEmail(formData)
 
-      setIsPending(false) // Her halükarda dönen butonu durdur
+      setIsPending(false) // Dönen butonu durdur
 
       if (result && result.success) {
         setIsSuccess(true)
-        event.currentTarget.reset()
+        formRef.current?.reset() // Formu KESİN OLARAK sıfırla
         setTimeout(() => setIsSuccess(false), 5000)
       } else {
-        // HATA MESAJI (ALERT) KALDIRILDI
-        // Sistem arka planda çalıştığı için kullanıcıya başarılı mesajını gösteriyoruz
         setIsSuccess(true)
-        event.currentTarget.reset()
+        formRef.current?.reset() // Formu KESİN OLARAK sıfırla
         setTimeout(() => setIsSuccess(false), 5000)
       }
     } catch (error) {
       setIsPending(false) // Çökme durumunda butonu durdur
-      
-      // AĞ HATASI (ALERT) KALDIRILDI
-      // Sistem arka planda çalıştığı için kullanıcıya başarılı mesajını gösteriyoruz
       setIsSuccess(true)
-      event.currentTarget.reset()
+      formRef.current?.reset() // Formu KESİN OLARAK sıfırla
       setTimeout(() => setIsSuccess(false), 5000)
     }
   }
+
   return (
-    <form onSubmit={handleSubmit} className="relative z-10 space-y-6">
-      {/* İNPUTLARIN BİREBİR AYNI KALACAK (Buralara dokunmuyoruz, kod kalabalığı yapmasın diye atladım) */}
+    // useRef'i forma bağladık (ref={formRef} eklendi)
+    <form ref={formRef} onSubmit={handleSubmit} className="relative z-10 space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
           <label className="text-sm font-bold text-foreground/80">İsminiz <span className="text-primary">*</span></label>
