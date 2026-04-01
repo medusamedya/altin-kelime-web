@@ -1,4 +1,3 @@
-// components/contact-form.tsx
 "use client"
 
 import { useState } from "react"
@@ -14,23 +13,29 @@ export function ContactForm() {
     event.preventDefault()
     setIsPending(true)
 
-    const formData = new FormData(event.currentTarget)
-    const result = await sendContactEmail(formData)
+    try {
+      const formData = new FormData(event.currentTarget)
+      const result = await sendContactEmail(formData)
 
-    setIsPending(false)
+      setIsPending(false) // Her halükarda dönen butonu durdur
 
-    if (result.success) {
-      setIsSuccess(true)
-      event.currentTarget.reset() // Formu temizle
-      // 5 saniye sonra başarı mesajını kaldır
-      setTimeout(() => setIsSuccess(false), 5000)
-    } else {
-      alert("Bir hata oluştu. Lütfen hello@medusaglobal.com.tr adresine direkt mail atınız.")
+      if (result && result.success) {
+        setIsSuccess(true)
+        event.currentTarget.reset()
+        setTimeout(() => setIsSuccess(false), 5000)
+      } else {
+        // Eğer sunucudan hata mesajı dönerse ekranda göster
+        alert(`Gönderim Başarısız: ${result?.error || "Bilinmeyen hata."}`)
+      }
+    } catch (error) {
+      setIsPending(false) // Çökme durumunda butonu durdur
+      alert("Ağ hatası oluştu. Lütfen hello@medusaglobal.com.tr adresine direkt mail atınız.")
     }
   }
 
   return (
     <form onSubmit={handleSubmit} className="relative z-10 space-y-6">
+      {/* İNPUTLARIN BİREBİR AYNI KALACAK (Buralara dokunmuyoruz, kod kalabalığı yapmasın diye atladım) */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
           <label className="text-sm font-bold text-foreground/80">İsminiz <span className="text-primary">*</span></label>
