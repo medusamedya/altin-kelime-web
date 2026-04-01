@@ -14,7 +14,7 @@ const navLinks = [
   { href: "/how-to-play", label: "Nasıl Oynanır?" },
   { href: "/apply", label: "Yarışmacı Ol" },
   { href: "/format", label: "Format" },
-  { href: "/#contact", label: "İletişim" },
+  { href: "/contact", label: "İletişim" },
 ]
 
 export function Navbar() {
