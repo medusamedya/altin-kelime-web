@@ -47,13 +47,9 @@ export default function Home() {
           
           <VideoSection />
           <StudioGallery />
-          <TeamSection />
-          
           <MobileAppSection />
-          
           <GamePlayground />
-          <ApplicationCTA />
-          <SponsorshipSection />
+         
           <FinalCTA />
       </main>
   );

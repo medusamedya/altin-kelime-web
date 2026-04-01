@@ -29,9 +29,6 @@ const FAQ_DATA = [
 export function FAQSection() {
   return (
     <section className="py-24 relative overflow-hidden bg-background border-t border-border/50">
-      {/* Dekoratif Arka Plan Parıltısı */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
-
       <div className="container mx-auto px-4 max-w-4xl relative z-10">
         
         {/* Üst Başlık Alanı */}

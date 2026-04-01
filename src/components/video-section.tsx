@@ -16,9 +16,6 @@ export function VideoSection() {
 
   return (
     <section id="video" className="py-24 lg:py-32 bg-background relative overflow-hidden">
-      {/* Premium Arka Plan Işık Efekti */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
-
       <div className="container mx-auto px-4 max-w-6xl relative z-10">
         
         {/* Başlık ve Açıklama Alanı */}
